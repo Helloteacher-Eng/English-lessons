@@ -1,1 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="Interactive English lessons for beginner students, based on the Spotlight 1 textbook. Works offline." />
+<title>Let's Learn English — Lessons</title>
+<style>
+  *{ box-sizing:border-box; margin:0; padding:0; }
 
+  body{
+    font-family:'Segoe UI', Arial, sans-serif;
+    background:#f0f6ff;
+    color:#1a1a2e;
+    font-size:18px;
+    line-height:1.6;
+  }
+
+  main{
+    max-width:760px;
+    margin:0 auto;
+    padding:30px 18px 60px;
+  }
+
+  /* HEADER */
+  .site-header{
+    text-align:center;
+    background:white;
+    border-radius:18px;
+    padding:30px 22px 24px;
+    margin-bottom:26px;
+    box-shadow:0 2px 12px rgba(0,0,0,.07);
+  }
+  .site-header .emoji{ font-size:46px; margin-bottom:6px; }
+  .site-header h1{
+    font-size:1.6rem;
+    font-weight:800;
+    color:#1e3a8a;
+    letter-spacing:-.3px;
+  }
+  .site-header p{
+    font-size:14px;
+    color:#6b7280;
+    margin-top:6px;
+  }
+
+  /* UNIT GROUP */
+  .unit-group{ margin-bottom:30px; }
+  .unit-title{
+    font-size:13px;
+    font-weight:800;
+    text-transform:uppercase;
+    letter-spacing:.8px;
+    color:#6b7280;
+    padding:0 6px;
+    margin-bottom:12px;
+  }
+
+  /* LESSON CARD (big tappable link) */
+  .lesson-list{
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+  }
+  .lesson-card{
+    display:flex;
+    align-items:center;
+    gap:16px;
+    background:white;
+    border-radius:16px;
+    padding:18px 20px;
+    text-decoration:none;
+    color:inherit;
+    box-shadow:0 2px 10px rgba(0,0,0,.06);
+    border:3px solid transparent;
+    transition:transform .15s ease, box-shadow .15s ease, border-color .15s ease;
+  }
+  .lesson-card:hover{
+    transform:translateY(-3px);
+    box-shadow:0 6px 18px rgba(0,0,0,.1);
+  }
+  .lesson-card:active{ transform:translateY(0); }
+
+  .lc-icon{
+    width:58px; height:58px;
+    border-radius:14px;
+    display:flex; align-items:center; justify-content:center;
+    font-size:28px;
+    flex-shrink:0;
+  }
+  .lc-blue   { background:#dbeafe; } .lesson-card.theme-blue:hover   { border-color:#3b82f6; }
+  .lc-purple { background:#ede9fe; } .lesson-card.theme-purple:hover{ border-color:#8b5cf6; }
+  .lc-amber  { background:#fef3c7; } .lesson-card.theme-amber:hover { border-color:#f59e0b; }
+  .lc-green  { background:#dcfce7; } .lesson-card.theme-green:hover { border-color:#16a34a; }
+
+  .lc-text{ flex:1; min-width:0; }
+  .lc-label{
+    font-size:11px;
+    font-weight:700;
+    text-transform:uppercase;
+    letter-spacing:.5px;
+    color:#9ca3af;
+    margin-bottom:2px;
+  }
+  .lc-title{
+    font-size:1.05rem;
+    font-weight:700;
+    color:#1a1a2e;
+  }
+  .lc-sub{
+    font-size:13px;
+    color:#6b7280;
+    margin-top:2px;
+  }
+  .lc-arrow{
+    font-size:22px;
+    color:#cbd5e1;
+    flex-shrink:0;
+  }
+
+  /* FOOTER NOTE */
+  .site-footer{
+    text-align:center;
+    margin-top:30px;
+    font-size:13px;
+    color:#9ca3af;
+  }
+
+  @media (max-width:480px){
+    body{ font-size:17px; }
+    .site-header h1{ font-size:1.3rem; }
+    .lc-icon{ width:50px; height:50px; font-size:24px; }
+    .lc-title{ font-size:1rem; }
+  }
+</style>
+</head>
+<body>
+
+<main>
+
+  <div class="site-header">
+    <div class="emoji">📚</div>
+    <h1>Let's Learn English</h1>
+    <p>Interactive lessons for beginners &bull; Spotlight 1</p>
+  </div>
+
+  <!-- ============================================================
+       UNIT 1
+       To add a new lesson: copy one <a class="lesson-card">...</a>
+       block below, change the icon/colour class, title, subtitle,
+       and the href to your new lesson file's name.
+       ============================================================ -->
+  <div class="unit-group">
+    <div class="unit-title">Unit 1</div>
+    <div class="lesson-list">
+
+      <a class="lesson-card theme-blue" href="lesson1_hello.html">
+        <div class="lc-icon lc-blue">👋</div>
+        <div class="lc-text">
+          <div class="lc-label">Lesson 1</div>
+          <div class="lc-title">Hello!</div>
+          <div class="lc-sub">Greetings &bull; classroom language &bull; the alphabet</div>
+        </div>
+        <div class="lc-arrow">›</div>
+      </a>
+
+      <a class="lesson-card theme-purple" href="lesson1_unit1.html">
+        <div class="lc-icon lc-purple">🌍</div>
+        <div class="lc-text">
+          <div class="lc-label">Lesson 1</div>
+          <div class="lc-title">Countries &amp; Personal Questions</div>
+          <div class="lc-sub">Where are you from? &bull; talking about yourself</div>
+        </div>
+        <div class="lc-arrow">›</div>
+      </a>
+
+      <a class="lesson-card theme-amber" href="lesson2_unit1_spelling.html">
+        <div class="lc-icon lc-amber">🔤</div>
+        <div class="lc-text">
+          <div class="lc-label">Lesson 2</div>
+          <div class="lc-title">How do you spell that?</div>
+          <div class="lc-sub">The alphabet &bull; spelling your name &bull; days of the week</div>
+        </div>
+        <div class="lc-arrow">›</div>
+      </a>
+
+    </div>
+  </div>
+
+  <div class="site-footer">
+    Tap a lesson to begin &bull; works offline once opened
+  </div>
+
+</main>
+
+</body>
+</html>
