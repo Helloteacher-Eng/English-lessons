@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>English Basics - Interactive Lesson</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    padding: 20px;
+    color: #333;
+  }
+  h1 {
+    text-align: center;
+    color: white;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+  }
+  .nav {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  .nav button {
+    padding: 12px 24px;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    background: white;
+    color: #667eea;
+    transition: all 0.3s;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  }
+  .nav button:hover { transform: translateY(-2px); }
+  .nav button.active {
+    background: #ff6b6b;
+    color: white;
+  }
+  .section {
+    display: none;
+    background: white;
+    border-radius: 15px;
+    padding: 25px;
+    max-width: 900px;
+    margin: 0 auto;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    animation: fadeIn 0.4s;
+  }
+  .section.active { display: block; }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .task {
+    background: #f8f9fa;
+    border-left: 5px solid #667eea;
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+  }
+  .task h3 {
+    color: #667eea;
+    margin-bottom: 12px;
+  }
+  input[type="text"] {
+    padding: 8px 12px;
+    border: 2px solid #ddd;
+    border-radius: 6px;
+    font-size: 16px;
+    width: 100px;
+    text-align: center;
+    transition: all 0.3s;
+  }
+  input[type="text"]:focus {
+    outline: none;
+    border-color: #667eea;
+  }
+  input.correct {
+    background: #d4edda !important;
+    border-color: #28a745 !important;
+    color: #155724;
+    font-weight: bold;
+  }
+  input.wrong {
+    background: #f8d7da !important;
+    border-color: #dc3545 !important;
+    color: #721c24;
+    font-weight: bold;
+  }
+  .btn {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    margin: 5px 5px 5px 0;
+    transition: all 0.2s;
+  }
+  .btn-check { background: #28a745; color: white; }
+  .btn-reset { background: #ffc107; color: #333; }
+  .btn-reveal { background: #17a2b8; color: white; }
+  .btn:hover { opacity: 0.85; transform: scale(1.05); }
+
+  /* Alphabet grid */
+  .alpha-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(45px, 1fr));
+    gap: 6px;
+    margin: 10px 0;
+  }
+  .alpha-cell {
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #667eea;
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s;
+    user-select: none;
+  }
+  .alpha-cell:hover { background: #5568d3; transform: scale(1.1); }
+  .alpha-cell.clicked { background: #28a745; }
+  .alpha-cell.blank {
+    background: white;
+    border: 2px dashed #667eea;
+    color: #667eea;
+  }
+
+  /* Match game */
+  .match-container {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  .match-col {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .match-item {
+    padding: 10px 15px;
+    background: #667eea;
+    color: white;
+    border-radius: 6px;
+    cursor: pointer;
+    min-width: 120px;
+    text-align: center;
+    transition: all 0.2s;
+  }
+  .match-item:hover { background: #5568d3; }
+  .match-item.selected { background: #ff6b6b; }
+  .match-item.matched { background: #28a745; cursor: default; }
+
+  /* Days */
+  .day-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: 10px;
+    margin: 10px 0;
+  }
+  .day-card {
+    padding: 15px;
+    background: #667eea;
+    color: white;
+    border-radius: 8px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .day-card:hover { transform: translateY(-3px); background: #5568d3; }
+
+  /* Math problems */
+  .math-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 10px 0;
+    flex-wrap: wrap;
+    font-size: 18px;
+  }
+  .math-row span { font-weight: bold; }
+
+  /* Questions */
+  .question-block {
+    background: #e7f3ff;
+    padding: 12px;
+    border-radius: 8px;
+    margin: 10px 0;
+  }
+  .question-block label {
+    display: block;
+    margin: 8px 0 4px;
+    font-weight: bold;
+  }
+
+  /* Fireworks canvas */
+  #fireworks {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: 9999;
+    display: none;
+  }
+
+  .celebration {
+    position: fixed;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 60px;
+    color: gold;
+    text-shadow: 3px 3px 6px rgba(0,0,0,0.5);
+    z-index: 10000;
+    animation: bounce 0.6s infinite alternate;
+    display: none;
+  }
+  @keyframes bounce {
+    from { transform: translate(-50%, -50%) scale(1); }
+    to { transform: translate(-50%, -50%) scale(1.2); }
+  }
+
+  .feedback {
+    margin-top: 10px;
+    font-weight: bold;
+    font-size: 16px;
+  }
+  .feedback.good { color: #28a745; }
+  .feedback.bad { color: #dc3545; }
+
+  .order-display {
+    min-height: 50px;
+    padding: 10px;
+    background: #fff;
+    border: 2px dashed #667eea;
+    border-radius: 6px;
+    margin: 10px 0;
+    font-size: 20px;
+    letter-spacing: 4px;
+    text-align: center;
+    color: #667eea;
+    font-weight: bold;
+  }
+</style>
+</head>
+<body>
+
+<h1>🎓 English Basics - Interactive Lesson</h1>
+
+<div class="nav">
+  <button onclick="showSection('alphabet', this)" class="active">🔤 Alphabet</button>
+  <button onclick="showSection('questions', this)">❓ Questions</button>
+  <button onclick="showSection('numbers', this)">🔢 Numbers 0-20</button>
+  <button onclick="showSection('days', this)">📅 Days of the Week</button>
+</div>
+
+<!-- ALPHABET SECTION -->
+<div id="alphabet" class="section active">
+  <h2 style="color:#667eea;">🔤 The Alphabet</h2>
+
+  <div class="task">
+    <h3>Task 1: Write the Missing Letters</h3>
+    <p>Fill in the blanks with the correct letter:</p>
+    <div id="alphaTask1" style="font-size:22px; line-height:2.5; margin:10px 0;">
+      A <input type="text" maxlength="1" data-answer="B"> 
+      C <input type="text" maxlength="1" data-answer="D"> 
+      E <input type="text" maxlength="1" data-answer="F"> 
+      G <input type="text" maxlength="1" data-answer="H"> 
+      I <input type="text" maxlength="1" data-answer="J"> 
+      K <input type="text" maxlength="1" data-answer="L"> 
+      M <input type="text" maxlength="1" data-answer="N"> 
+      O <input type="text" maxlength="1" data-answer="P"> 
+      Q <input type="text" maxlength="1" data-answer="R"> 
+      S <input type="text" maxlength="1" data-answer="T"> 
+      U <input type="text" maxlength="1" data-answer="V"> 
+      W <input type="text" maxlength="1" data-answer="X"> 
+      Y <input type="text" maxlength="1" data-answer="Z">
+    </div>
+    <button class="btn btn-check" onclick="checkInputs('alphaTask1')">✓ Check</button>
+    <button class="btn btn-reveal" onclick="revealAnswers('alphaTask1')">👁 Reveal All</button>
+    <button class="btn btn-reset" onclick="resetInputs('alphaTask1')">↺ Reset</button>
+    <div class="feedback" id="alphaTask1-fb"></div>
+  </div>
+
+  <div class="task">
+    <h3>Task 2: Order the Alphabet by Sound</h3>
+    <p>Click each letter in alphabetical order (A → Z). Click a letter to hear its pronunciation!</p>
+    <div class="alpha-grid" id="alphaGrid"></div>
+    <div>Your order: <span class="order-display" id="alphaOrder">...</span></div>
+    <button class="btn btn-check" onclick="checkAlphaOrder()">✓ Check Order</button>
+    <button class="btn btn-reset" onclick="resetAlphaOrder()">↺ Reset</button>
+    <div class="feedback" id="alphaOrder-fb"></div>
+  </div>
+</div>
+
+<!-- QUESTIONS SECTION -->
+<div id="questions" class="section">
+  <h2 style="color:#667eea;">❓ Answer the Questions</h2>
+  <div class="task">
+    <h3>Personal Information</h3>
+    <div class="question-block">
+      <label>1. What's your first name?</label>
+      <input type="text" id="q1" style="width:200px;" data-answer="">
+      <label>How do you spell it?</label>
+      <input type="text" id="q2" style="width:300px;" data-answer="">
+      <label>2. What's your last name?</label>
+      <input type="text" id="q3" style="width:200px;" data-answer="">
+      <label>How do you spell it?</label>
+      <input type="text" id="q4" style="width:300px;" data-answer="">
+    </div>
+    <p style="margin-top:10px; color:#666; font-style:italic;">
+      💡 These are open questions — type your real answers. Then click "Check" to hear them read aloud!
+    </p>
+    <button class="btn btn-check" onclick="checkPersonal()">✓ Check & Hear</button>
+    <button class="btn btn-reset" onclick="resetPersonal()">↺ Reset</button>
+    <div class="feedback" id="q-fb"></div>
+  </div>
+</div>
+
+<!-- NUMBERS SECTION -->
+<div id="numbers" class="section">
+  <h2 style="color:#667eea;">🔢 Numbers 0 to 20</h2>
+
+  <div class="task">
+    <h3>Task 1: Write the Missing Numbers in Letters (0-10)</h3>
+    <div id="numTask1">
+      <div class="math-row">0 = <input type="text" data-answer="zero" style="width:120px;"></div>
+      <div class="math-row">1 = <input type="text" data-answer="one" style="width:120px;"></div>
+      <div class="math-row">2 = <input type="text" data-answer="two" style="width:120px;"></div>
+      <div class="math-row">3 = <input type="text" data-answer="three" style="width:120px;"></div>
+      <div class="math-row">4 = <input type="text" data-answer="four" style="width:120px;"></div>
+      <div class="math-row">5 = <input type="text" data-answer="five" style="width:120px;"></div>
+      <div class="math-row">6 = <input type="text" data-answer="six" style="width:120px;"></div>
+      <div class="math-row">7 = <input type="text" data-answer="seven" style="width:120px;"></div>
+      <div class="math-row">8 = <input type="text" data-answer="eight" style="width:120px;"></div>
+      <div class="math-row">9 = <input type="text" data-answer="nine" style="width:120px;"></div>
+      <div class="math-row">10 = <input type="text" data-answer="ten" style="width:120px;"></div>
+    </div>
+    <button class="btn btn-check" onclick="checkInputs('numTask1')">✓ Check</button>
+    <button class="btn btn-reveal" onclick="revealAnswers('numTask1')">👁 Reveal All</button>
+    <button class="btn btn-reset" onclick="resetInputs('numTask1')">↺ Reset</button>
+    <div class="feedback" id="numTask1-fb"></div>
+  </div>
+
+  <div class="task">
+    <h3>Task 2: Match Numbers with Their Names (11-20)</h3>
+    <p>Click a number, then click its matching name.</p>
+    <div class="match-container">
+      <div class="match-col" id="matchNums"></div>
+      <div class="match-col" id="matchWords"></div>
+    </div>
+    <button class="btn btn-reset" onclick="resetMatch()" style="margin-top:10px;">↺ Reset</button>
+    <div class="feedback" id="match-fb"></div>
+  </div>
+
+  <div class="task">
+    <h3>Task 3: Simple Math (plus / minus / equals)</h3>
+    <div id="numTask3">
+      <div class="math-row"><span>zero</span> + <span>two</span> = <input type="text" data-answer="two" style="width:120px;"></div>
+      <div class="math-row"><span>three</span> + <span>one</span> = <input type="text" data-answer="four" style="width:120px;"></div>
+      <div class="math-row"><span>five</span> + <span>four</span> = <input type="text" data-answer="nine" style="width:120px;"></div>
+      <div class="math-row"><span>seven</span> - <span>three</span> = <input type="text" data-answer="four" style="width:120px;"></div>
+      <div class="math-row"><span>ten</span> - <span>five</span> = <input type="text" data-answer="five" style="width:120px;"></div>
+      <div class="math-row"><span>eight</span> + <span>two</span> = <input type="text" data-answer="ten" style="width:120px;"></div>
+      <div class="math-row"><span>six</span> - <span>one</span> = <input type="text" data-answer="five" style="width:120px;"></div>
+      <div class="math-row"><span>nine</span> - <span>four</span> = <input type="text" data-answer="five" style="width:120px;"></div>
+    </div>
+    <button class="btn btn-check" onclick="checkInputs('numTask3')">✓ Check</button>
+    <button class="btn btn-reveal" onclick="revealAnswers('numTask3')">👁 Reveal All</button>
+    <button class="btn btn-reset" onclick="resetInputs('numTask3')">↺ Reset</button>
+    <div class="feedback" id="numTask3-fb"></div>
+  </div>
+</div>
+
+<!-- DAYS SECTION -->
+<div id="days" class="section">
+  <h2 style="color:#667eea;">📅 Days of the Week</h2>
+
+  <div class="task">
+    <h3>Task 1: Listen and Repeat</h3>
+    <p>Click each day to hear its pronunciation. Then repeat it aloud!</p>
+    <div class="day-grid" id="dayListen"></div>
+  </div>
+
+  <div class="task">
+    <h3>Task 2: Complete the Words</h3>
+    <div id="daysTask2">
+      <div class="math-row">M o n <input type="text" data-answer="d" maxlength="1"> a y</div>
+      <div class="math-row">T u e s <input type="text" data-answer="d" maxlength="1"> a y</div>
+      <div class="math-row">W e <input type="text" data-answer="d" maxlength="1"> n e s d a y</div>
+      <div class="math-row">T h u <input type="text" data-answer="r" maxlength="1"> s d a y</div>
+      <div class="math-row">F r i <input type="text" data-answer="d" maxlength="1"> a y</div>
+      <div class="math-row">S a t u <input type="text" data-answer="r" maxlength="1"> d a y</div>
+      <div class="math-row">S u n <input type="text" data-answer="d" maxlength="1"> a y</div>
+    </div>
+    <button class="btn btn-check" onclick="checkInputs('daysTask2')">✓ Check</button>
+    <button class="btn btn-reveal" onclick="revealAnswers('daysTask2')">👁 Reveal All</button>
+    <button class="btn btn-reset" onclick="resetInputs('daysTask2')">↺ Reset</button>
+    <div class="feedback" id="daysTask2-fb"></div>
+  </div>
+
+  <div class="task">
+    <h3>Task 3: Days Math</h3>
+    <p>If today is the day shown, what day will it be after the given number of days?</p>
+    <div id="daysTask3">
+      <div class="math-row">If today is <span>Monday</span>, in 2 days it will be <input type="text" data-answer="wednesday" style="width:140px;"></div>
+      <div class="math-row">If today is <span>Thursday</span>, in 3 days it will be <input type="text" data-answer="sunday" style="width:140px;"></div>
+      <div class="math-row">If today is <span>Friday</span>, in 1 day it will be <input type="text" data-answer="saturday" style="width:140px;"></div>
+      <div class="math-row">If today is <span>Sunday</span>, in 5 days it will be <input type="text" data-answer="friday" style="width:140px;"></div>
+      <div class="math-row">If today is <span>Tuesday</span>, in 4 days it will be <input type="text" data-answer="saturday" style="width:140px;"></div>
+      <div class="math-row">If today is <span>Wednesday</span>, in 7 days it will be <input type="text" data-answer="wednesday" style="width:140px;"></div>
+    </div>
+    <button class="btn btn-check" onclick="checkInputs('daysTask3')">✓ Check</button>
+    <button class="btn btn-reveal" onclick="revealAnswers('daysTask3')">👁 Reveal All</button>
+    <button class="btn btn-reset" onclick="resetInputs('daysTask3')">↺ Reset</button>
+    <div class="feedback" id="daysTask3-fb"></div>
+  </div>
+</div>
+
+<canvas id="fireworks"></canvas>
+<div class="celebration" id="celebration">🎉 PERFECT! 🎉</div>
+
+<script>
+  // ============ NAVIGATION ============
+  function showSection(id, btn) {
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    document.querySelectorAll('.nav button').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+  }
+
+  // ============ SPEECH ============
+  function speak(text) {
+    if ('speechSynthesis' in window) {
+      window.speechSynthesis.cancel();
+      const u = new SpeechSynthesisUtterance(text);
+      u.lang = 'en-US';
+      u.rate = 0.85;
+      window.speechSynthesis.speak(u);
+    }
+  }
+
+  // ============ CHECK / REVEAL / RESET ============
+  function checkInputs(containerId) {
+    const container = document.getElementById(containerId);
+    const inputs = container.querySelectorAll('input');
+    let correct = 0, total = inputs.length;
+    inputs.forEach(inp => {
+      const ans = inp.dataset.answer.trim().toLowerCase();
+      const val = inp.value.trim().toLowerCase();
+      inp.classList.remove('correct', 'wrong');
+      if (val === ans) {
+        inp.classList.add('correct');
+        correct++;
+      } else if (val !== '') {
+        inp.classList.add('wrong');
+      }
+    });
+    const fb = document.getElementById(containerId + '-fb');
+    if (correct === total) {
+      fb.textContent = `🎉 Excellent! ${correct}/${total} correct!`;
+      fb.className = 'feedback good';
+      celebrate();
+    } else {
+      fb.textContent = `You got ${correct}/${total} correct. Try again!`;
+      fb.className = 'feedback bad';
+    }
+  }
+
+  function revealAnswers(containerId) {
+    const container = document.getElementById(containerId);
+    container.querySelectorAll('input').forEach(inp => {
+      inp.value = inp.dataset.answer;
+      inp.classList.remove('wrong');
+      inp.classList.add('correct');
+    });
+  }
+
+  function resetInputs(containerId) {
+    const container = document.getElementById(containerId);
+    container.querySelectorAll('input').forEach(inp => {
+      inp.value = '';
+      inp.classList.remove('correct', 'wrong');
+    });
+    const fb = document.getElementById(containerId + '-fb');
+    if (fb) { fb.textContent = ''; fb.className = 'feedback'; }
+  }
+
+  // ============ ALPHABET TASK 2 ============
+  const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+  let alphaOrder = [];
+
+  function buildAlphaGrid() {
+    const grid = document.getElementById('alphaGrid');
+    grid.innerHTML = '';
+    const shuffled = [...alphabet].sort(() => Math.random() - 0.5);
+    shuffled.forEach(letter => {
+      const cell = document.createElement('div');
+      cell.className = 'alpha-cell';
+      cell.textContent = letter;
+      cell.onclick = () => clickAlpha(letter, cell);
+      grid.appendChild(cell);
+    });
+  }
+
+  function clickAlpha(letter, cell) {
+    if (cell.classList.contains('clicked')) return;
+    speak(letter);
+    cell.classList.add('clicked');
+    alphaOrder.push(letter);
+    document.getElementById('alphaOrder').textContent = alphaOrder.join(' ');
+  }
+
+  function checkAlphaOrder() {
+    const fb = document.getElementById('alphaOrder-fb');
+    if (alphaOrder.length !== 26) {
+      fb.textContent = `You clicked ${alphaOrder.length}/26 letters. Click all of them!`;
+      fb.className = 'feedback bad';
+      return;
+    }
+    const correct = alphaOrder.join('') === alphabet.join('');
+    if (correct) {
+      fb.textContent = '🎉 Perfect! Alphabet in correct order!';
+      fb.className = 'feedback good';
+      celebrate();
+    } else {
+      fb.textContent = '❌ Not quite right. Try again!';
+      fb.className = 'feedback bad';
+    }
+  }
+
+  function resetAlphaOrder() {
+    alphaOrder = [];
+    document.getElementById('alphaOrder').textContent = '...';
+    document.getElementById('alphaOrder-fb').textContent = '';
+    buildAlphaGrid();
+  }
+
+  // ============ PERSONAL QUESTIONS ============
+  function checkPersonal() {
+    const q1 = document.getElementById('q1').value.trim();
+    const q2 = document.getElementById('q2').value.trim();
+    const q3 = document.getElementById('q3').value.trim();
+    const q4 = document.getElementById('q4').value.trim();
+    const fb = document.getElementById('q-fb');
+    if (!q1 || !q2 || !q3 || !q4) {
+      fb.textContent = '⚠️ Please fill in all the fields!';
+      fb.className = 'feedback bad';
+      return;
+    }
+    fb.textContent = '🎤 Listening to your answers...';
+    fb.className = 'feedback good';
+    const text = `My first name is ${q1}. I spell it: ${q2}. My last name is ${q3}. I spell it: ${q4}.`;
+    speak(text);
+  }
+
+  function resetPersonal() {
+    ['q1','q2','q3','q4'].forEach(id => document.getElementById(id).value = '');
+    document.getElementById('q-fb').textContent = '';
+  }
+
+  // ============ MATCHING GAME ============
+  const numbersMap = {
+    11:'eleven', 12:'twelve', 13:'thirteen', 14:'fourteen', 15:'fifteen',
+    16:'sixteen', 17:'seventeen', 18:'eighteen', 19:'nineteen', 20:'twenty'
+  };
+  let selectedNum = null;
+  let matchedCount = 0;
+
+  function buildMatch() {
+    const numCol = document.getElementById('matchNums');
+    const wordCol = document.getElementById('matchWords');
+    numCol.innerHTML = ''; wordCol.innerHTML = '';
+    const nums = Object.keys(numbersMap);
+    const words = Object.values(numbersMap).sort(() => Math.random() - 0.5);
+    nums.forEach(n => {
+      const el = document.createElement('div');
+      el.className = 'match-item';
+      el.textContent = n;
+      el.dataset.type = 'num';
+      el.dataset.val = n;
+      el.onclick = () => selectMatch(el);
+      numCol.appendChild(el);
+    });
+    words.forEach(w => {
+      const el = document.createElement('div');
+      el.className = 'match-item';
+      el.textContent = w;
+      el.dataset.type = 'word';
+      el.dataset.val = w;
+      el.onclick = () => selectMatch(el);
+      wordCol.appendChild(el);
+    });
+  }
+
+  function selectMatch(el) {
+    if (el.classList.contains('matched')) return;
+    speak(el.textContent);
+    if (!selectedNum) {
+      selectedNum = el;
+      el.classList.add('selected');
+    } else {
+      if (selectedNum === el) {
+        el.classList.remove('selected');
+        selectedNum = null;
+        return;
+      }
+      if (selectedNum.dataset.type === el.dataset.type) {
+        selectedNum.classList.remove('selected');
+        selectedNum = el;
+        el.classList.add('selected');
+        return;
+      }
+      // different types - check match
+      let numVal, wordVal;
+      if (selectedNum.dataset.type === 'num') {
+        numVal = selectedNum.dataset.val;
+        wordVal = el.dataset.val;
+      } else {
+        numVal = el.dataset.val;
+        wordVal = selectedNum.dataset.val;
+      }
+      if (numbersMap[numVal] === wordVal) {
+        selectedNum.classList.remove('selected');
+        selectedNum.classList.add('matched');
+        el.classList.add('matched');
+        matchedCount++;
+        if (matchedCount === 10) {
+          document.getElementById('match-fb').textContent = '🎉 All matched!';
+          document.getElementById('match-fb').className = 'feedback good';
+          celebrate();
+        }
+      } else {
+        selectedNum.classList.add('wrong');
+        el.classList.add('wrong');
+        const s = selectedNum;
+        setTimeout(() => {
+          s.classList.remove('selected','wrong');
+          el.classList.remove('wrong');
+        }, 600);
+      }
+      selectedNum = null;
+    }
+  }
+
+  function resetMatch() {
+    selectedNum = null;
+    matchedCount = 0;
+    document.getElementById('match-fb').textContent = '';
+    buildMatch();
+  }
+
+  // ============ DAYS LISTEN ============
+  const days = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'];
+  function buildDayListen() {
+    const grid = document.getElementById('dayListen');
+    grid.innerHTML = '';
+    days.forEach(d => {
+      const card = document.createElement('div');
+      card.className = 'day-card';
+      card.textContent = '🔊 ' + d;
+      card.onclick = () => speak(d);
+      grid.appendChild(card);
+    });
+  }
+
+  // ============ CELEBRATION ============
+  function celebrate() {
+    // Clapping sound
+    try {
+      const ctx = new (window.AudioContext || window.webkitAudioContext)();
+      for (let i = 0; i < 6; i++) {
+        setTimeout(() => {
+          const o = ctx.createOscillator();
+          const g = ctx.createGain();
+          o.frequency.value = 800 + Math.random()*400;
+          o.type = 'triangle';
+          g.gain.setValueAtTime(0.2, ctx.currentTime);
+          g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.15);
+          o.connect(g); g.connect(ctx.destination);
+          o.start(); o.stop(ctx.currentTime + 0.15);
+        }, i * 150);
+      }
+    } catch(e) {}
+
+    // Fireworks
+    const canvas = document.getElementById('fireworks');
+    const ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    canvas.style.display = 'block';
+    document.getElementById('celebration').style.display = 'block';
+
+    const particles = [];
+    const colors = ['#ff6b6b','#feca57','#48dbfb','#1dd1a1','#ff9ff3','#f368e0'];
+
+    function createFirework() {
+      const x = Math.random() * canvas.width;
+      const y = Math.random() * canvas.height * 0.6;
+      for (let i = 0; i < 40; i++) {
+        const angle = (Math.PI * 2 * i) / 40;
+        const speed = 2 + Math.random() * 3;
+        particles.push({
+          x, y,
+          vx: Math.cos(angle) * speed,
+          vy: Math.sin(angle) * speed,
+          life: 60,
+          color: colors[Math.floor(Math.random()*colors.length)]
+        });
+      }
+    }
+
+    let frames = 0;
+    function animate() {
+      ctx.fillStyle = 'rgba(0,0,0,0.15)';
+      ctx.fillRect(0,0,canvas.width,canvas.height);
+      for (let i = particles.length - 1; i >= 0; i--) {
+        const p = particles[i];
+        p.x += p.vx; p.y += p.vy;
+        p.vy += 0.05;
+        p.life--;
+        ctx.fillStyle = p.color;
+        ctx.globalAlpha = p.life / 60;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, 3, 0, Math.PI*2);
+        ctx.fill();
+        if (p.life <= 0) particles.splice(i,1);
+      }
+      ctx.globalAlpha = 1;
+      frames++;
+      if (frames % 25 === 0 && frames < 150) createFirework();
+      if (frames < 180) {
+        requestAnimationFrame(animate);
+      } else {
+        canvas.style.display = 'none';
+        document.getElementById('celebration').style.display = 'none';
+        ctx.clearRect(0,0,canvas.width,canvas.height);
+      }
+    }
+    createFirework();
+    animate();
+  }
+
+  // ============ INIT ============
+  buildAlphaGrid();
+  buildMatch();
+  buildDayListen();
+</script>
+
+</body>
+</html>

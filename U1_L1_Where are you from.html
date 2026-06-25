@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Unit 1 - Lesson 1 | Let's Learn English</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: #f0f6ff;
+    color: #1a1a2e;
+    font-size: 17px;
+    line-height: 1.6;
+  }
+
+  main {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 24px 16px 60px;
+  }
+
+  /* ── MAIN TABS ── */
+  .tab-row {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  .main-tab {
+    flex: 1;
+    text-align: center;
+    padding: 16px 10px;
+    border-radius: 14px;
+    font-size: 17px;
+    font-weight: 700;
+    cursor: pointer;
+    border: 3px solid transparent;
+    background: white;
+    color: #6b7280;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    transition: all .15s;
+    user-select: none;
+  }
+  .main-tab:hover { transform: translateY(-2px); }
+  .main-tab.active-countries {
+    background: #cffafe;
+    border-color: #22d3ee;
+    color: #0e7490;
+  }
+  .main-tab.active-personal {
+    background: #ede9fe;
+    border-color: #a78bfa;
+    color: #5b21b6;
+  }
+
+  /* ── SECTION CARD ── */
+  .panel { display: none; }
+  .panel.visible { display: block; }
+
+  .section-card {
+    background: white;
+    border-radius: 14px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+    overflow: hidden;
+    margin-bottom: 24px;
+  }
+  .section-body { padding: 20px; }
+
+  .instruction {
+    background: #eff6ff;
+    border-left: 4px solid #3b82f6;
+    border-radius: 0 8px 8px 0;
+    padding: 10px 14px;
+    margin-bottom: 18px;
+    font-size: 15px;
+    color: #1e40af;
+  }
+
+  /* ── COUNTRY GRID ── */
+  .country-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+    gap: 10px;
+  }
+  .country-card {
+    background: #f8faff;
+    border: 1.5px solid #dbeafe;
+    border-radius: 10px;
+    padding: 14px 10px;
+    text-align: center;
+    cursor: pointer;
+    transition: all .2s;
+    user-select: none;
+  }
+  .country-card:hover { border-color: #3b82f6; background: #eff6ff; transform: translateY(-2px); }
+  .country-card .flag { width: 52px; height: 36px; margin: 0 auto 8px; border-radius: 4px; overflow: hidden; box-shadow: 0 0 0 1px rgba(0,0,0,0.12); display: block; }
+  .country-card .flag svg { width: 100%; height: 100%; display: block; }
+  .country-card .name { font-weight: 700; font-size: 14px; color: #1e3a8a; }
+  .country-card.done { background: #dcfce7; border-color: #16a34a; }
+  .country-card.done .name { color: #14532d; }
+
+  /* ── PRACTICE BOX ── */
+  .practice-box {
+    background: #f8faff;
+    border: 2px dashed #93c5fd;
+    border-radius: 12px;
+    padding: 18px;
+    margin-top: 18px;
+  }
+  .practice-box h3 {
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: .6px;
+    color: #1d4ed8;
+    margin-bottom: 12px;
+  }
+  .speech-line {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 15px;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+  }
+  .fill-blank {
+    border: none;
+    border-bottom: 2px solid #3b82f6;
+    background: transparent;
+    width: 140px;
+    font-size: 15px;
+    color: #1e3a8a;
+    font-weight: 600;
+    outline: none;
+    padding: 2px 4px;
+  }
+  .fill-blank:focus { border-bottom-color: #f59e0b; }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    background: #2563eb;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 18px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background .2s;
+    margin-top: 10px;
+  }
+  .btn:hover { background: #1d4ed8; }
+  .btn-reset { background: #6b7280; }
+  .btn-reset:hover { background: #4b5563; }
+
+  /* ── QUESTION ACCORDION ── */
+  .q-card {
+    border: 2px solid #ede9fe;
+    border-radius: 12px;
+    margin-bottom: 12px;
+    overflow: hidden;
+  }
+  .q-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 14px 16px;
+    background: #f5f3ff;
+    cursor: pointer;
+    font-weight: 700;
+    color: #5b21b6;
+    font-size: 16px;
+    user-select: none;
+  }
+  .q-card.open .q-head { background: #ede9fe; }
+  .q-head .arrow { transition: transform .2s; font-size: 14px; }
+  .q-card.open .q-head .arrow { transform: rotate(90deg); }
+
+  .q-answer {
+    display: none;
+    padding: 16px;
+    background: white;
+  }
+  .answer-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 10px;
+  }
+  .answer-card {
+    background: #fdf4ff;
+    border: 1.5px solid #f0abfc;
+    border-radius: 10px;
+    padding: 12px 10px;
+    text-align: center;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 14px;
+    color: #86198f;
+    transition: all .2s;
+    user-select: none;
+  }
+  .answer-card:hover { background: #fae8ff; border-color: #d946ef; transform: translateY(-2px); }
+  .answer-card.done { background: #dcfce7; border-color: #16a34a; color: #14532d; }
+  .answer-card .emoji { font-size: 20px; display: block; margin-bottom: 4px; }
+  .answer-card .flagmini { width: 40px; height: 28px; margin: 0 auto 6px; border-radius: 3px; overflow: hidden; box-shadow: 0 0 0 1px rgba(0,0,0,0.12); display: block; }
+  .answer-card .flagmini svg { width: 100%; height: 100%; display: block; }
+
+  @media (max-width: 540px) {
+    .main-tab { font-size: 14px; padding: 14px 6px; }
+    .country-grid { grid-template-columns: repeat(2, 1fr); }
+    .answer-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+</style>
+</head>
+<body>
+
+<main>
+
+  <!-- ══ MAIN TABS ══ -->
+  <div class="tab-row">
+    <div class="main-tab active-countries" id="tabCountries" onclick="switchMain('countries')">🌍 Countries</div>
+    <div class="main-tab" id="tabPersonal" onclick="switchMain('personal')">💬 Personal Questions</div>
+  </div>
+
+  <!-- ══ PANEL: COUNTRIES ══ -->
+  <div class="panel visible" id="countriesSection">
+    <div class="section-card">
+      <div class="section-body">
+        <div class="instruction">
+          👉 Click each flag. Say the country name out loud, then say: "I'm from ___".
+        </div>
+
+        <div class="country-grid" id="countryGrid">
+          <div class="country-card" onclick="toggleCard(this)"><div class="flag"><svg viewBox="0 0 60 40" xmlns="http://www.w3.org/2000/svg"><rect width="60" height="40" fill="#c1272d"/><polygon points="30,9 33.5,17 42,17 35,22.5 37.5,31 30,26 22.5,31 25,22.5 18,17 26.5,17" fill="none" stroke="#006233" stroke-width="2"/></svg></div><div class="name">Morocco</div></div>
+          <div class="country-card" onclick="toggleCard(this)"><div class="flag"><svg viewBox="0 0 60 40" xmlns="http://www.w3.org/2000/svg"><rect width="60" height="40" fill="#ffffff"/><circle cx="30" cy="20" r="10" fill="#bc002d"/></svg></div><div class="name">Japan</div></div>
+          <div class="country-card" onclick="toggleCard(this)"><div class="flag"><svg viewBox="0 0 60 40" xmlns="http://www.w3.org/2000/svg"><rect width="60" height="40" fill="#f1bf00"/><rect width="60" height="10" fill="#aa151b"/><rect y="30" width="60" height="10" fill="#aa151b"/></svg></div><div class="name">Spain</div></div>
+          <div class="country-card" onclick="toggleCard(this)"><div class="flag"><svg viewBox="0 0 60 40" xmlns="http://www.w3.org/2000/svg"><rect width="60" height="40" fill="#ffffff"/><rect y="0" width="60" height="3.1" fill="#b22234"/><rect y="6.2" width="60" height="3.1" fill="#b22234"/><rect y="12.4" width="60" height="3.1" fill="#b22234"/><rect y="18.6" width="60" height="3.1" fill="#b22234"/><rect y="24.8" width="60" height="3.1" fill="#b22234"/><rect y="31" width="60" height="3.1" fill="#b22234"/><rect y="37.2" width="60" height="3.1" fill="#b22234"/><rect width="26" height="21.7" fill="#3c3b6e"/><circle cx="7" cy="5" r="1.1" fill="white"/><circle cx="13" cy="5" r="1.1" fill="white"/><circle cx="19" cy="5" r="1.1" fill="white"/><circle cx="10" cy="9" r="1.1" fill="white"/><circle cx="16" cy="9" r="1.1" fill="white"/><circle cx="7" cy="13" r="1.1" fill="white"/><circle cx="13" cy="13" r="1.1" fill="white"/><circle cx="19" cy="13" r="1.1" fill="white"/><circle cx="10" cy="17" r="1.1" fill="white"/><circle cx="16" cy="17" r="1.1" fill="white"/></svg></div><div class="name">USA</div></div>
+          <div class="country-card" onclick="toggleCard(this)"><div class="flag"><svg viewBox="0 0 60 40" xmlns="http://www.w3.org/2000/svg"><rect width="20" height="40" fill="#00853f"/><rect x="20" width="20" height="40" fill="#fdef42"/><rect x="40" width="20" height="40" fill="#e31b23"/><polygon points="30,12 32.1,18.2 38.5,18.2 33.5,21.8 35.5,28 30,24.4 24.5,28 26.5,21.8 21.5,18.2 27.9,18.2" fill="#00853f"/></svg></div><div class="name">Senegal</div></div>
+          <div class="country-card" onclick="toggleCard(this)"><div class="flag"><svg viewBox="0 0 60 40" xmlns="http://www.w3.org/2000/svg"><rect width="60" height="40" fill="#012169"/><line x1="0" y1="0" x2="60" y2="40" stroke="white" stroke-width="8"/><line x1="60" y1="0" x2="0" y2="40" stroke="white" stroke-width="8"/><line x1="0" y1="0" x2="60" y2="40" stroke="#C8102E" stroke-width="3"/><line x1="60" y1="0" x2="0" y2="40" stroke="#C8102E" stroke-width="3"/><rect x="24" width="12" height="40" fill="white"/><rect y="14" width="60" height="12" fill="white"/><rect x="27" width="6" height="40" fill="#C8102E"/><rect y="17" width="60" height="6" fill="#C8102E"/></svg></div><div class="name">UK</div></div>
+          <div class="country-card" onclick="toggleCard(this)"><div class="flag"><svg viewBox="0 0 60 40" xmlns="http://www.w3.org/2000/svg"><rect width="60" height="13.3" fill="#FF9933"/><rect y="13.3" width="60" height="13.3" fill="#ffffff"/><rect y="26.6" width="60" height="13.3" fill="#138808"/><circle cx="30" cy="20" r="5" fill="none" stroke="#000080" stroke-width="1"/><circle cx="30" cy="20" r="0.8" fill="#000080"/></svg></div><div class="name">India</div></div>
+          <div class="country-card" onclick="toggleCard(this)"><div class="flag"><svg viewBox="0 0 60 40" xmlns="http://www.w3.org/2000/svg"><rect width="20" height="40" fill="#009246"/><rect x="20" width="20" height="40" fill="#ffffff"/><rect x="40" width="20" height="40" fill="#ce2b37"/></svg></div><div class="name">Italy</div></div>
+          <div class="country-card" onclick="toggleCard(this)"><div class="flag"><svg viewBox="0 0 60 40" xmlns="http://www.w3.org/2000/svg"><rect width="60" height="13.3" fill="#ce1126"/><rect y="13.3" width="60" height="13.3" fill="#ffffff"/><rect y="26.6" width="60" height="13.3" fill="#000000"/><circle cx="30" cy="20" r="4" fill="#c09a3e"/></svg></div><div class="name">Egypt</div></div>
+          <div class="country-card" onclick="toggleCard(this)"><div class="flag"><svg viewBox="0 0 60 40" xmlns="http://www.w3.org/2000/svg"><rect width="20" height="40" fill="#0055A4"/><rect x="20" width="20" height="40" fill="#ffffff"/><rect x="40" width="20" height="40" fill="#EF4135"/></svg></div><div class="name">France</div></div>
+          <div class="country-card" onclick="toggleCard(this)"><div class="flag"><svg viewBox="0 0 60 40" xmlns="http://www.w3.org/2000/svg"><rect width="60" height="40" fill="#00247d"/><rect width="26" height="17.3" fill="#012169"/><line x1="0" y1="0" x2="26" y2="17.3" stroke="white" stroke-width="3"/><line x1="26" y1="0" x2="0" y2="17.3" stroke="white" stroke-width="3"/><rect x="10.5" width="5" height="17.3" fill="white"/><rect y="6.6" width="26" height="4" fill="white"/><rect x="11.7" width="2.6" height="17.3" fill="#C8102E"/><rect y="7.6" width="26" height="2" fill="#C8102E"/><circle cx="46" cy="9" r="2" fill="white"/><circle cx="38" cy="20" r="1.6" fill="white"/><circle cx="48" cy="24" r="1.6" fill="white"/><circle cx="40" cy="31" r="1.6" fill="white"/><circle cx="52" cy="33" r="1.2" fill="white"/></svg></div><div class="name">Australia</div></div>
+        </div>
+
+        <div style="margin-top:10px;">
+          <button class="btn btn-reset" onclick="resetGrid('countryGrid')">🔄 Reset</button>
+        </div>
+
+        <div class="practice-box">
+          <h3>✏️ Now it's your turn</h3>
+          <div class="speech-line">
+            Where are you from? &nbsp; I'm from <input class="fill-blank" id="countryBlank" placeholder="country" /> .
+          </div>
+          <button class="btn btn-reset" onclick="document.getElementById('countryBlank').value=''">🔄 Reset</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ PANEL: PERSONAL QUESTIONS ══ -->
+  <div class="panel" id="personalSection">
+    <div class="section-card">
+      <div class="section-body">
+        <div class="instruction">
+          👉 Click a question to see the answers. Click an answer card to practice it. Click the question again to close it.
+        </div>
+
+        <!-- Q1 -->
+        <div class="q-card" data-id="q1">
+          <div class="q-head" onclick="toggleQuestion('q1')">
+            <span>1. What's your name?</span><span class="arrow">▶</span>
+          </div>
+          <div class="q-answer" id="ans-q1">
+            <div class="answer-grid">
+              <div class="answer-card" onclick="toggleAnswer(this)"><span class="emoji">👦</span>My name is Adam.</div>
+              <div class="answer-card" onclick="toggleAnswer(this)"><span class="emoji">👧</span>My name is Layla.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Q2 -->
+        <div class="q-card" data-id="q2">
+          <div class="q-head" onclick="toggleQuestion('q2')">
+            <span>2. How are you?</span><span class="arrow">▶</span>
+          </div>
+          <div class="q-answer" id="ans-q2">
+            <div class="answer-grid">
+              <div class="answer-card" onclick="toggleAnswer(this)"><span class="emoji">😄</span>I'm great.</div>
+              <div class="answer-card" onclick="toggleAnswer(this)"><span class="emoji">🙂</span>I'm fine.</div>
+              <div class="answer-card" onclick="toggleAnswer(this)"><span class="emoji">😐</span>I'm ok.</div>
+              <div class="answer-card" onclick="toggleAnswer(this)"><span class="emoji">😟</span>I'm not so good.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Q3 -->
+        <div class="q-card" data-id="q3">
+          <div class="q-head" onclick="toggleQuestion('q3')">
+            <span>3. Where are you from?</span><span class="arrow">▶</span>
+          </div>
+          <div class="q-answer" id="ans-q3">
+            <div class="answer-grid">
+              <div class="answer-card" onclick="toggleAnswer(this)"><span class="flagmini"><svg viewBox="0 0 60 40" xmlns="http://www.w3.org/2000/svg"><rect width="60" height="40" fill="#c1272d"/><polygon points="30,9 33.5,17 42,17 35,22.5 37.5,31 30,26 22.5,31 25,22.5 18,17 26.5,17" fill="none" stroke="#006233" stroke-width="2"/></svg></span>I'm from Morocco.</div>
+              <div class="answer-card" onclick="toggleAnswer(this)"><span class="flagmini"><svg viewBox="0 0 60 40" xmlns="http://www.w3.org/2000/svg"><rect width="60" height="40" fill="#f1bf00"/><rect width="60" height="10" fill="#aa151b"/><rect y="30" width="60" height="10" fill="#aa151b"/></svg></span>I'm from Spain.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Q4 -->
+        <div class="q-card" data-id="q4">
+          <div class="q-head" onclick="toggleQuestion('q4')">
+            <span>4. How old are you?</span><span class="arrow">▶</span>
+          </div>
+          <div class="q-answer" id="ans-q4">
+            <div class="answer-grid">
+              <div class="answer-card" onclick="toggleAnswer(this)">I'm twelve (12).</div>
+              <div class="answer-card" onclick="toggleAnswer(this)">I'm thirteen (13).</div>
+              <div class="answer-card" onclick="toggleAnswer(this)">I'm fourteen (14).</div>
+              <div class="answer-card" onclick="toggleAnswer(this)">I'm fifteen (15).</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="practice-box">
+          <h3>✏️ Now it's your turn — answer about yourself</h3>
+          <div class="speech-line">What's your name? &nbsp; My name is <input class="fill-blank" id="p1" placeholder="your name" /> .</div>
+          <div class="speech-line">How are you? &nbsp; I'm <input class="fill-blank" id="p2" placeholder="great / fine / ok..." /> .</div>
+          <div class="speech-line">Where are you from? &nbsp; I'm from <input class="fill-blank" id="p3" placeholder="your country" /> .</div>
+          <div class="speech-line">How old are you? &nbsp; I'm <input class="fill-blank" id="p4" placeholder="your age" /> .</div>
+          <button class="btn btn-reset" onclick="resetPersonalPractice()">🔄 Reset</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<script>
+  // ── Main tab switching ──
+  function switchMain(tab) {
+    const countries = document.getElementById('countriesSection');
+    const personal  = document.getElementById('personalSection');
+    const tabC = document.getElementById('tabCountries');
+    const tabP = document.getElementById('tabPersonal');
+
+    if (tab === 'countries') {
+      countries.classList.add('visible');
+      personal.classList.remove('visible');
+      tabC.classList.add('active-countries');
+      tabP.classList.remove('active-personal');
+    } else {
+      personal.classList.add('visible');
+      countries.classList.remove('visible');
+      tabP.classList.add('active-personal');
+      tabC.classList.remove('active-countries');
+    }
+  }
+
+  // ── Country / vocab card toggle ──
+  function toggleCard(el) {
+    el.classList.toggle('done');
+  }
+  function resetGrid(gridId) {
+    document.getElementById(gridId).querySelectorAll('.country-card, .answer-card').forEach(el => {
+      el.classList.remove('done');
+    });
+  }
+
+  // ── Answer card toggle (inside accordion) ──
+  function toggleAnswer(el) {
+    el.classList.toggle('done');
+  }
+
+  // ── Question accordion: only one open at a time ──
+  function toggleQuestion(id) {
+    const card = document.querySelector('.q-card[data-id="' + id + '"]');
+    const answer = document.getElementById('ans-' + id);
+    const isOpen = card.classList.contains('open');
+
+    document.querySelectorAll('.q-card').forEach(c => c.classList.remove('open'));
+    document.querySelectorAll('.q-answer').forEach(a => a.style.display = 'none');
+
+    if (!isOpen) {
+      card.classList.add('open');
+      answer.style.display = 'block';
+    }
+  }
+
+  function resetPersonalPractice() {
+    ['p1','p2','p3','p4'].forEach(id => document.getElementById(id).value = '');
+  }
+</script>
+</body>
+</html>

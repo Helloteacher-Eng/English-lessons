@@ -1,0 +1,2328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="theme-color" content="#FF8C42">
+<title>Meet My Family - English Lesson</title>
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  :root {
+    --primary: #FF8C42;
+    --primary-dark: #E67A30;
+    --secondary: #4ECDC4;
+    --accent: #FFD93D;
+    --bg: #FFF8F0;
+    --card: #FFFFFF;
+    --text: #2D3436;
+    --text-light: #636E72;
+    --success: #6BCB77;
+    --error: #FF6B6B;
+    --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
+  }
+
+  html, body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ===== FIXED HEADER ===== */
+  .header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+    color: white;
+    padding: 14px 16px 12px;
+    z-index: 100;
+    box-shadow: var(--shadow);
+  }
+
+  .header-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    gap: 8px;
+  }
+
+  .lesson-title {
+    font-size: 1.15rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex: 1;
+    min-width: 0;
+  }
+
+  .lesson-title::before {
+    content: "👨‍👩‍👧‍👦";
+    font-size: 1.4rem;
+  }
+
+  .header-stats {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    flex-shrink: 0;
+  }
+
+  .star-counter {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    background: rgba(255, 255, 255, 0.2);
+    padding: 4px 10px;
+    border-radius: 20px;
+    transition: transform 0.2s ease;
+  }
+
+  .star-counter::before {
+    content: "⭐";
+    font-size: 1rem;
+  }
+
+  .reset-btn {
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    color: white;
+    font-size: 1.1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    font-family: inherit;
+  }
+
+  .reset-btn:active {
+    background: rgba(255, 255, 255, 0.35);
+    transform: rotate(-180deg);
+  }
+
+  .progress-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .progress-bar {
+    flex: 1;
+    height: 10px;
+    background: rgba(255, 255, 255, 0.25);
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .progress-fill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, var(--accent) 0%, #FFB84D 100%);
+    border-radius: 10px;
+    transition: width 0.5s ease;
+    box-shadow: 0 0 8px rgba(255, 217, 61, 0.6);
+  }
+
+  .progress-percent {
+    font-size: 0.85rem;
+    font-weight: 700;
+    min-width: 40px;
+    text-align: right;
+  }
+
+  /* ===== TAB NAVIGATION ===== */
+  .tab-nav {
+    position: fixed;
+    top: 88px;
+    left: 0;
+    right: 0;
+    background: var(--card);
+    display: flex;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    z-index: 99;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  }
+
+  .tab-nav::-webkit-scrollbar {
+    display: none;
+  }
+
+  .tab-btn {
+    flex: 1;
+    min-width: 80px;
+    padding: 12px 8px;
+    background: none;
+    border: none;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-light);
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    position: relative;
+    transition: all 0.3s ease;
+    font-family: inherit;
+  }
+
+  .tab-btn .tab-icon {
+    font-size: 1.4rem;
+    transition: transform 0.3s ease;
+  }
+
+  .tab-btn::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 3px;
+    background: var(--primary);
+    border-radius: 3px 3px 0 0;
+    transition: width 0.3s ease;
+  }
+
+  .tab-btn.active {
+    color: var(--primary);
+  }
+
+  .tab-btn.active .tab-icon {
+    transform: scale(1.15);
+  }
+
+  .tab-btn.active::after {
+    width: 60%;
+  }
+
+  .tab-btn:active {
+    background: rgba(255, 140, 66, 0.08);
+  }
+
+  .tab-btn.completed::before {
+    content: "✓";
+    position: absolute;
+    top: 6px;
+    right: 8px;
+    background: var(--success);
+    color: white;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    font-size: 0.7rem;
+    font-weight: 900;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* ===== MAIN CONTENT ===== */
+  main {
+    padding: 170px 16px 30px;
+    max-width: 720px;
+    margin: 0 auto;
+  }
+
+  .section {
+    display: none;
+    animation: fadeIn 0.4s ease;
+  }
+
+  .section.active {
+    display: block;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .section-header {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  .section-header h2 {
+    font-size: 1.5rem;
+    color: var(--text);
+    margin-bottom: 4px;
+  }
+
+  .section-header p {
+    color: var(--text-light);
+    font-size: 0.95rem;
+  }
+
+  /* ===== LEARN SECTION - VOCAB CARDS ===== */
+  .vocab-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+  }
+
+  .vocab-card {
+    background: var(--card);
+    border-radius: 20px;
+    padding: 18px 12px;
+    box-shadow: var(--shadow);
+    text-align: center;
+    cursor: pointer;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    border: 3px solid transparent;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .vocab-card:active {
+    transform: scale(1.05);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .vocab-card.listened {
+    border-color: var(--success);
+  }
+
+  .vocab-card.listened::after {
+    content: "✓";
+    position: absolute;
+    top: 8px;
+    right: 10px;
+    background: var(--success);
+    color: white;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    font-size: 0.8rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .vocab-emoji {
+    font-size: 3.5rem;
+    line-height: 1;
+  }
+
+  .vocab-word {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--text);
+    text-transform: capitalize;
+  }
+
+  .vocab-listen-btn {
+    background: var(--primary);
+    color: white;
+    border: none;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    transition: background 0.2s ease, transform 0.2s ease;
+    font-family: inherit;
+  }
+
+  .vocab-listen-btn:active {
+    background: var(--primary-dark);
+    transform: scale(0.95);
+  }
+
+  /* ===== LISTEN SECTION ===== */
+  .listen-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .listen-btn {
+    background: linear-gradient(135deg, #FFFFFF 0%, #FFF5EB 100%);
+    border: 3px solid var(--primary);
+    border-radius: 20px;
+    padding: 18px 20px;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--primary-dark);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    transition: all 0.2s ease;
+    font-family: inherit;
+    box-shadow: var(--shadow);
+    text-align: left;
+  }
+
+  .listen-btn:active {
+    transform: scale(0.98);
+  }
+
+  .listen-btn .listen-emoji {
+    font-size: 2rem;
+    flex-shrink: 0;
+  }
+
+  .listen-btn .listen-word {
+    flex: 1;
+    text-transform: capitalize;
+  }
+
+  .listen-btn .listen-icon {
+    font-size: 1.3rem;
+    flex-shrink: 0;
+    transition: transform 0.3s ease;
+  }
+
+  @keyframes pulse {
+    0%, 100% {
+      transform: scale(1);
+      box-shadow: var(--shadow);
+    }
+    50% {
+      transform: scale(1.03);
+      box-shadow: 0 0 20px rgba(255, 140, 66, 0.5);
+    }
+  }
+
+  @keyframes speakerWave {
+    0%, 100% { transform: scale(1); }
+    25% { transform: scale(1.2); }
+    50% { transform: scale(0.95); }
+    75% { transform: scale(1.15); }
+  }
+
+  .listen-btn.speaking {
+    animation: pulse 0.8s ease-in-out infinite;
+    background: linear-gradient(135deg, #FFF5EB 0%, #FFE4CC 100%);
+    border-color: var(--primary-dark);
+  }
+
+  .listen-btn.speaking .listen-icon {
+    animation: speakerWave 0.6s ease-in-out infinite;
+  }
+
+  /* ===== MATCH SECTION ===== */
+  .match-instruction {
+    background: var(--card);
+    border-radius: 16px;
+    padding: 14px 18px;
+    margin-bottom: 16px;
+    text-align: center;
+    box-shadow: var(--shadow);
+    font-weight: 600;
+    color: var(--text);
+  }
+
+  .match-instruction .inst-icon {
+    font-size: 1.3rem;
+    margin-right: 6px;
+  }
+
+  .match-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  .match-column {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .match-column-title {
+    text-align: center;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--text-light);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 4px;
+  }
+
+  .match-item {
+    background: var(--card);
+    border: 3px solid #E0E0E0;
+    border-radius: 16px;
+    padding: 16px 10px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    font-family: inherit;
+    box-shadow: var(--shadow);
+    min-height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text);
+  }
+
+  .match-item .match-emoji {
+    font-size: 2.2rem;
+  }
+
+  .match-item.selected {
+    border-color: var(--primary);
+    background: #FFF5EB;
+    transform: scale(1.05);
+    box-shadow: 0 0 0 4px rgba(255, 140, 66, 0.2);
+  }
+
+  .match-item.correct {
+    border-color: var(--success);
+    background: #E8F8EA;
+    color: var(--success);
+    pointer-events: none;
+    position: relative;
+  }
+
+  .match-item.correct::after {
+    content: "✓";
+    position: absolute;
+    top: 4px;
+    right: 8px;
+    font-size: 1.2rem;
+    font-weight: 900;
+    color: var(--success);
+  }
+
+  .match-item.wrong {
+    border-color: var(--error);
+    background: #FFE8E8;
+    animation: shake 0.4s ease;
+  }
+
+  @keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    20% { transform: translateX(-8px); }
+    40% { transform: translateX(8px); }
+    60% { transform: translateX(-6px); }
+    80% { transform: translateX(6px); }
+  }
+
+  .match-complete {
+    background: linear-gradient(135deg, var(--success) 0%, #4CAF50 100%);
+    color: white;
+    padding: 20px;
+    border-radius: 20px;
+    text-align: center;
+    margin-top: 16px;
+    box-shadow: var(--shadow-lg);
+    animation: fadeIn 0.5s ease;
+  }
+
+  .match-complete .complete-icon {
+    font-size: 3rem;
+    margin-bottom: 8px;
+  }
+
+  .match-complete h3 {
+    font-size: 1.3rem;
+    margin-bottom: 4px;
+  }
+
+  /* ===== GRAMMAR SECTION ===== */
+  .grammar-lesson {
+    background: linear-gradient(135deg, #4ECDC4 0%, #44A3AA 100%);
+    color: white;
+    padding: 20px;
+    border-radius: 20px;
+    margin-bottom: 20px;
+    box-shadow: var(--shadow);
+  }
+
+  .grammar-lesson h3 {
+    font-size: 1.15rem;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .grammar-lesson h3::before {
+    content: "💡";
+    font-size: 1.3rem;
+  }
+
+  .grammar-examples {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .grammar-example {
+    background: rgba(255, 255, 255, 0.2);
+    padding: 10px 14px;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .grammar-example .ex-emoji {
+    font-size: 1.5rem;
+  }
+
+  .grammar-example .highlight {
+    background: var(--accent);
+    color: var(--text);
+    padding: 2px 8px;
+    border-radius: 6px;
+    font-weight: 800;
+  }
+
+  .grammar-question {
+    background: var(--card);
+    border-radius: 20px;
+    padding: 18px;
+    margin-bottom: 14px;
+    box-shadow: var(--shadow);
+    transition: all 0.3s ease;
+  }
+
+  .grammar-question.answered-correct {
+    border: 3px solid var(--success);
+  }
+
+  .grammar-question.answered-wrong {
+    border: 3px solid var(--error);
+  }
+
+  .grammar-q-number {
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--primary);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 6px;
+  }
+
+  .grammar-q-text {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 14px;
+    line-height: 1.4;
+  }
+
+  .grammar-q-text .blank {
+    display: inline-block;
+    min-width: 80px;
+    border-bottom: 3px solid var(--primary);
+    margin: 0 4px;
+    text-align: center;
+    color: var(--primary);
+    font-weight: 800;
+  }
+
+  .grammar-options {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    margin-bottom: 10px;
+  }
+
+  .grammar-option {
+    background: var(--bg);
+    border: 2px solid transparent;
+    border-radius: 12px;
+    padding: 12px 8px;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: inherit;
+    text-align: center;
+  }
+
+  .grammar-option:active:not(:disabled) {
+    transform: scale(0.95);
+  }
+
+  .grammar-option:disabled {
+    cursor: not-allowed;
+    opacity: 0.7;
+  }
+
+  .grammar-option.selected-correct {
+    background: var(--success);
+    color: white;
+    border-color: var(--success);
+  }
+
+  .grammar-option.selected-wrong {
+    background: var(--error);
+    color: white;
+    border-color: var(--error);
+  }
+
+  .grammar-option.show-correct {
+    background: #E8F8EA;
+    color: var(--success);
+    border-color: var(--success);
+  }
+
+  .grammar-feedback {
+    padding: 10px 14px;
+    border-radius: 12px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    display: none;
+    animation: fadeIn 0.3s ease;
+  }
+
+  .grammar-feedback.show {
+    display: block;
+  }
+
+  .grammar-feedback.correct {
+    background: #E8F8EA;
+    color: #2E7D32;
+  }
+
+  .grammar-feedback.wrong {
+    background: #FFE8E8;
+    color: #C62828;
+  }
+
+  .grammar-complete {
+    background: linear-gradient(135deg, var(--success) 0%, #4CAF50 100%);
+    color: white;
+    padding: 20px;
+    border-radius: 20px;
+    text-align: center;
+    margin-top: 16px;
+    box-shadow: var(--shadow-lg);
+    animation: fadeIn 0.5s ease;
+  }
+
+  .grammar-complete .complete-icon {
+    font-size: 3rem;
+    margin-bottom: 8px;
+  }
+
+  /* ===== CHALLENGE SECTION ===== */
+  .challenge-intro {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+    color: white;
+    padding: 20px;
+    border-radius: 20px;
+    margin-bottom: 16px;
+    text-align: center;
+    box-shadow: var(--shadow);
+  }
+
+  .challenge-intro .intro-icon {
+    font-size: 3rem;
+    margin-bottom: 6px;
+  }
+
+  .challenge-intro h3 {
+    font-size: 1.25rem;
+    margin-bottom: 4px;
+  }
+
+  .challenge-intro p {
+    font-size: 0.95rem;
+    opacity: 0.95;
+  }
+
+  .challenge-progress {
+    display: flex;
+    gap: 6px;
+    justify-content: center;
+    margin-bottom: 16px;
+  }
+
+  .challenge-dot {
+    width: 32px;
+    height: 6px;
+    border-radius: 3px;
+    background: #E0E0E0;
+    transition: background 0.3s ease;
+  }
+
+  .challenge-dot.active {
+    background: var(--primary);
+  }
+
+  .challenge-dot.correct {
+    background: var(--success);
+  }
+
+  .challenge-dot.wrong {
+    background: var(--error);
+  }
+
+  .challenge-card {
+    background: var(--card);
+    border-radius: 24px;
+    padding: 24px 20px;
+    box-shadow: var(--shadow-lg);
+    text-align: center;
+    animation: fadeIn 0.4s ease;
+  }
+
+  .challenge-q-number {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--primary);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 12px;
+  }
+
+  .challenge-q-prompt {
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: var(--text);
+    margin-bottom: 20px;
+    line-height: 1.3;
+    min-height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .challenge-q-prompt .emoji-prompt {
+    font-size: 3rem;
+    line-height: 1;
+  }
+
+  .challenge-q-prompt .blank {
+    display: inline-block;
+    min-width: 90px;
+    border-bottom: 4px solid var(--primary);
+    margin: 0 4px;
+    color: var(--primary);
+    font-weight: 900;
+  }
+
+  .challenge-options {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+    margin-bottom: 16px;
+  }
+
+  .challenge-option {
+    background: var(--bg);
+    border: 3px solid transparent;
+    border-radius: 16px;
+    padding: 16px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--text);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: inherit;
+    text-align: center;
+    box-shadow: var(--shadow);
+  }
+
+  .challenge-option:active:not(:disabled) {
+    transform: scale(0.97);
+  }
+
+  .challenge-option:disabled {
+    cursor: not-allowed;
+  }
+
+  .challenge-option.selected-correct {
+    background: var(--success);
+    color: white;
+    border-color: var(--success);
+    animation: pop 0.4s ease;
+  }
+
+  .challenge-option.selected-wrong {
+    background: var(--error);
+    color: white;
+    border-color: var(--error);
+    animation: shake 0.4s ease;
+  }
+
+  .challenge-option.show-correct {
+    background: #E8F8EA;
+    color: var(--success);
+    border-color: var(--success);
+  }
+
+  @keyframes pop {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.08); }
+    100% { transform: scale(1); }
+  }
+
+  .challenge-feedback {
+    padding: 12px 16px;
+    border-radius: 14px;
+    font-size: 1rem;
+    font-weight: 700;
+    display: none;
+    margin-bottom: 14px;
+    animation: fadeIn 0.3s ease;
+  }
+
+  .challenge-feedback.show {
+    display: block;
+  }
+
+  .challenge-feedback.correct {
+    background: #E8F8EA;
+    color: #2E7D32;
+  }
+
+  .challenge-feedback.wrong {
+    background: #FFE8E8;
+    color: #C62828;
+  }
+
+  .challenge-next-btn {
+    background: var(--primary);
+    color: white;
+    border: none;
+    padding: 14px 32px;
+    border-radius: 30px;
+    font-size: 1.05rem;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: var(--shadow);
+    transition: all 0.2s ease;
+    font-family: inherit;
+    display: none;
+  }
+
+  .challenge-next-btn.show {
+    display: inline-block;
+  }
+
+  .challenge-next-btn:active {
+    background: var(--primary-dark);
+    transform: scale(0.97);
+  }
+
+  .challenge-result {
+    background: linear-gradient(135deg, var(--accent) 0%, #FFB84D 100%);
+    border-radius: 24px;
+    padding: 28px 20px;
+    text-align: center;
+    box-shadow: var(--shadow-lg);
+    animation: fadeIn 0.5s ease;
+  }
+
+  .challenge-result .result-icon {
+    font-size: 4rem;
+    margin-bottom: 8px;
+    animation: bounce 1.5s ease-in-out infinite;
+  }
+
+  @keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-12px); }
+  }
+
+  .challenge-result h3 {
+    font-size: 1.5rem;
+    color: var(--text);
+    margin-bottom: 8px;
+  }
+
+  .challenge-result .result-score {
+    font-size: 1.1rem;
+    color: var(--text);
+    font-weight: 600;
+    margin-bottom: 12px;
+  }
+
+  .challenge-result .result-stars {
+    font-size: 2rem;
+    letter-spacing: 4px;
+    margin-bottom: 16px;
+    line-height: 1;
+  }
+
+  .challenge-restart-btn {
+    background: var(--card);
+    color: var(--primary-dark);
+    border: 3px solid var(--primary);
+    padding: 12px 28px;
+    border-radius: 30px;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    font-family: inherit;
+    transition: all 0.2s ease;
+  }
+
+  .challenge-restart-btn:active {
+    background: var(--primary);
+    color: white;
+    transform: scale(0.97);
+  }
+
+  /* ===== CELEBRATION MODAL ===== */
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    z-index: 1000;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    animation: fadeIn 0.3s ease;
+  }
+
+  .modal-overlay.show {
+    display: flex;
+  }
+
+  .modal-card {
+    background: linear-gradient(135deg, #FFFFFF 0%, #FFF5EB 100%);
+    border-radius: 28px;
+    padding: 32px 24px;
+    max-width: 400px;
+    width: 100%;
+    text-align: center;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    animation: modalPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+    position: relative;
+  }
+
+  @keyframes modalPop {
+    0% { transform: scale(0.5); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+  }
+
+  .modal-icon {
+    font-size: 5rem;
+    margin-bottom: 8px;
+    animation: bounce 1.5s ease-in-out infinite;
+  }
+
+  .modal-title {
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--primary-dark);
+    margin-bottom: 8px;
+  }
+
+  .modal-subtitle {
+    font-size: 1.05rem;
+    color: var(--text);
+    margin-bottom: 20px;
+    font-weight: 600;
+  }
+
+  .modal-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+
+  .modal-stat {
+    background: white;
+    border-radius: 16px;
+    padding: 14px 8px;
+    box-shadow: var(--shadow);
+  }
+
+  .modal-stat .stat-label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: var(--text-light);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 4px;
+  }
+
+  .modal-stat .stat-value {
+    font-size: 1.3rem;
+    font-weight: 800;
+    color: var(--primary-dark);
+  }
+
+  .modal-stars {
+    font-size: 2rem;
+    letter-spacing: 4px;
+    margin-bottom: 20px;
+    line-height: 1;
+  }
+
+  .modal-close-btn {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+    color: white;
+    border: none;
+    padding: 14px 36px;
+    border-radius: 30px;
+    font-size: 1.05rem;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: var(--shadow);
+    font-family: inherit;
+    transition: all 0.2s ease;
+  }
+
+  .modal-close-btn:active {
+    transform: scale(0.97);
+  }
+
+  /* ===== CONFIRM DIALOG ===== */
+  .confirm-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    z-index: 1100;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+
+  .confirm-overlay.show {
+    display: flex;
+  }
+
+  .confirm-card {
+    background: white;
+    border-radius: 24px;
+    padding: 24px 20px;
+    max-width: 340px;
+    width: 100%;
+    text-align: center;
+    box-shadow: var(--shadow-lg);
+    animation: modalPop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  .confirm-icon {
+    font-size: 3rem;
+    margin-bottom: 8px;
+  }
+
+  .confirm-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 6px;
+  }
+
+  .confirm-text {
+    font-size: 0.95rem;
+    color: var(--text-light);
+    margin-bottom: 18px;
+  }
+
+  .confirm-buttons {
+    display: flex;
+    gap: 10px;
+  }
+
+  .confirm-btn {
+    flex: 1;
+    padding: 12px;
+    border-radius: 14px;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    border: none;
+    font-family: inherit;
+    transition: all 0.2s ease;
+  }
+
+  .confirm-btn.cancel {
+    background: var(--bg);
+    color: var(--text);
+  }
+
+  .confirm-btn.confirm {
+    background: var(--error);
+    color: white;
+  }
+
+  .confirm-btn:active {
+    transform: scale(0.97);
+  }
+
+  /* ===== RESPONSIVE ===== */
+  @media (min-width: 500px) {
+    .vocab-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+    .listen-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .challenge-options {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  @media (min-width: 600px) {
+    .lesson-title { font-size: 1.4rem; }
+    .tab-btn { font-size: 0.95rem; }
+    .tab-btn .tab-icon { font-size: 1.6rem; }
+    main { padding-top: 180px; }
+    .section-header h2 { font-size: 1.75rem; }
+    .vocab-emoji { font-size: 4rem; }
+    .vocab-word { font-size: 1.2rem; }
+  }
+
+  @media (min-width: 900px) {
+    main { padding-top: 190px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== HEADER ===== -->
+<header class="header">
+  <div class="header-top">
+    <h1 class="lesson-title">Meet My Family</h1>
+    <div class="header-stats">
+      <div class="star-counter" id="starCounter">0</div>
+      <button class="reset-btn" id="resetBtn" aria-label="Reset lesson" title="Reset lesson">↺</button>
+    </div>
+  </div>
+  <div class="progress-wrapper">
+    <div class="progress-bar">
+      <div class="progress-fill" id="progressFill"></div>
+    </div>
+    <div class="progress-percent" id="progressPercent">0%</div>
+  </div>
+</header>
+
+<!-- ===== TAB NAVIGATION ===== -->
+<nav class="tab-nav" id="tabNav">
+  <button class="tab-btn active" data-tab="learn">
+    <span class="tab-icon">📖</span>
+    <span>Learn</span>
+  </button>
+  <button class="tab-btn" data-tab="listen">
+    <span class="tab-icon">🔊</span>
+    <span>Listen</span>
+  </button>
+  <button class="tab-btn" data-tab="match">
+    <span class="tab-icon">🎯</span>
+    <span>Match</span>
+  </button>
+  <button class="tab-btn" data-tab="grammar">
+    <span class="tab-icon">✏️</span>
+    <span>Grammar</span>
+  </button>
+  <button class="tab-btn" data-tab="challenge">
+    <span class="tab-icon">🏆</span>
+    <span>Challenge</span>
+  </button>
+</nav>
+
+<!-- ===== MAIN CONTENT ===== -->
+<main>
+
+  <!-- LEARN SECTION -->
+  <section class="section active" id="learn">
+    <div class="section-header">
+      <h2>📖 Learn the Words</h2>
+      <p>Tap a card to hear the word. Learn all 6!</p>
+    </div>
+    <div class="vocab-grid" id="vocabGrid"></div>
+  </section>
+
+  <!-- LISTEN SECTION -->
+  <section class="section" id="listen">
+    <div class="section-header">
+      <h2>🔊 Listen &amp; Repeat</h2>
+      <p>Tap each button. Listen carefully. Say it out loud!</p>
+    </div>
+    <div class="listen-grid" id="listenGrid"></div>
+  </section>
+
+  <!-- MATCH SECTION -->
+  <section class="section" id="match">
+    <div class="section-header">
+      <h2>🎯 Match Game</h2>
+      <p>Match each picture with the correct word.</p>
+    </div>
+    <div class="match-instruction">
+      <span class="inst-icon">👆</span>
+      Tap an emoji, then tap the matching word.
+    </div>
+    <div class="match-container">
+      <div class="match-column" id="emojiColumn">
+        <div class="match-column-title">Pictures</div>
+      </div>
+      <div class="match-column" id="wordColumn">
+        <div class="match-column-title">Words</div>
+      </div>
+    </div>
+    <div id="matchCompleteMsg"></div>
+  </section>
+
+  <!-- GRAMMAR SECTION -->
+  <section class="section" id="grammar">
+    <div class="section-header">
+      <h2>✏️ Grammar Time</h2>
+      <p>Choose the correct word for each sentence.</p>
+    </div>
+
+    <div class="grammar-lesson">
+      <h3>Mini Lesson: My / His / Her</h3>
+      <div class="grammar-examples">
+        <div class="grammar-example">
+          <span class="ex-emoji">👩</span>
+          <span><span class="highlight">My</span> mother.</span>
+        </div>
+        <div class="grammar-example">
+          <span class="ex-emoji">👨</span>
+          <span><span class="highlight">His</span> father.</span>
+        </div>
+        <div class="grammar-example">
+          <span class="ex-emoji">👧</span>
+          <span><span class="highlight">Her</span> sister.</span>
+        </div>
+      </div>
+    </div>
+
+    <div id="grammarQuestions"></div>
+    <div id="grammarCompleteMsg"></div>
+  </section>
+
+  <!-- CHALLENGE SECTION -->
+  <section class="section" id="challenge">
+    <div class="section-header">
+      <h2>🏆 Final Challenge</h2>
+      <p>Answer 5 questions. Earn stars!</p>
+    </div>
+
+    <div class="challenge-intro" id="challengeIntro">
+      <div class="intro-icon">🎯</div>
+      <h3>Ready?</h3>
+      <p>5 questions mixing vocabulary &amp; grammar.</p>
+    </div>
+
+    <div class="challenge-progress" id="challengeProgress"></div>
+
+    <div id="challengeContent"></div>
+  </section>
+
+</main>
+
+<!-- ===== CELEBRATION MODAL ===== -->
+<div class="modal-overlay" id="celebrationModal">
+  <div class="modal-card">
+    <div class="modal-icon">🎉</div>
+    <h2 class="modal-title">Excellent!</h2>
+    <p class="modal-subtitle">You finished the lesson!</p>
+
+    <div class="modal-stats">
+      <div class="modal-stat">
+        <div class="stat-label">Challenge</div>
+        <div class="stat-value" id="modalScore">5/5</div>
+      </div>
+      <div class="modal-stat">
+        <div class="stat-label">Stars</div>
+        <div class="stat-value" id="modalStars">⭐ 0</div>
+      </div>
+      <div class="modal-stat">
+        <div class="stat-label">Progress</div>
+        <div class="stat-value" id="modalProgress">100%</div>
+      </div>
+    </div>
+
+    <div class="modal-stars" id="modalStarsDisplay">⭐⭐⭐⭐⭐</div>
+
+    <button class="modal-close-btn" id="modalCloseBtn">🎊 Awesome!</button>
+  </div>
+</div>
+
+<!-- ===== CONFIRM DIALOG ===== -->
+<div class="confirm-overlay" id="confirmDialog">
+  <div class="confirm-card">
+    <div class="confirm-icon">🔄</div>
+    <h3 class="confirm-title">Reset Lesson?</h3>
+    <p class="confirm-text">This will clear all your progress, stars, and answers.</p>
+    <div class="confirm-buttons">
+      <button class="confirm-btn cancel" id="confirmCancel">Cancel</button>
+      <button class="confirm-btn confirm" id="confirmOk">Reset</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  /* =========================================================
+     STATE & PROGRESS TRACKING
+     ========================================================= */
+  const state = {
+    currentTab: 'learn',
+    stars: 0,
+    completedSections: {
+      learn: false,
+      listen: false,
+      match: false,
+      grammar: false,
+      challenge: false
+    },
+    totalSections: 5,
+    learnHeard: new Set(),
+    listenPlayed: new Set(),
+    matchMatched: 0,
+    grammarAnswered: 0,
+    challengeScore: 0,
+    celebrationShown: false
+  };
+
+  // Vocabulary for this lesson
+  const vocabulary = [
+    { word: 'father', emoji: '👨' },
+    { word: 'mother', emoji: '👩' },
+    { word: 'brother', emoji: '👦' },
+    { word: 'sister', emoji: '👧' },
+    { word: 'grandfather', emoji: '👴' },
+    { word: 'grandmother', emoji: '👵' }
+  ];
+
+  // Grammar questions
+  const grammarQuestions = [
+    {
+      text: '___ mother.',
+      options: ['My', 'His', 'Her'],
+      correct: 0,
+      explanation: '"My" is used when talking about yourself (I → my).'
+    },
+    {
+      text: 'Ahmed and ___ father.',
+      options: ['My', 'His', 'Her'],
+      correct: 1,
+      explanation: 'Ahmed is a boy, so we use "his" (he → his).'
+    },
+    {
+      text: 'Sara and ___ sister.',
+      options: ['My', 'His', 'Her'],
+      correct: 2,
+      explanation: 'Sara is a girl, so we use "her" (she → her).'
+    },
+    {
+      text: 'I love ___ family.',
+      options: ['My', 'His', 'Her'],
+      correct: 0,
+      explanation: '"I" goes with "my" (I → my).'
+    }
+  ];
+
+  // Challenge questions (mix of vocab + grammar)
+  const challengeQuestions = [
+    {
+      type: 'vocab',
+      prompt: '<span class="emoji-prompt">👨</span>',
+      promptSpeak: 'Father',
+      options: ['father', 'mother', 'brother'],
+      correct: 0
+    },
+    {
+      type: 'vocab',
+      prompt: '<span class="emoji-prompt">👩</span>',
+      promptSpeak: 'Mother',
+      options: ['sister', 'grandmother', 'mother'],
+      correct: 2
+    },
+    {
+      type: 'grammar',
+      prompt: 'Ahmed and <span class="blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> father.',
+      promptSpeak: 'Ahmed and blank father.',
+      options: ['My', 'His', 'Her'],
+      correct: 1
+    },
+    {
+      type: 'grammar',
+      prompt: 'Sara and <span class="blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> sister.',
+      promptSpeak: 'Sara and blank sister.',
+      options: ['My', 'His', 'Her'],
+      correct: 2
+    },
+    {
+      type: 'vocab',
+      prompt: 'My <span class="blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> <span class="emoji-prompt">👩</span>',
+      promptSpeak: 'My blank.',
+      options: ['father', 'mother', 'brother'],
+      correct: 1
+    }
+  ];
+
+  /* =========================================================
+     DOM REFERENCES
+     ========================================================= */
+  const tabButtons = document.querySelectorAll('.tab-btn');
+  const sections = document.querySelectorAll('.section');
+  const progressFill = document.getElementById('progressFill');
+  const progressPercent = document.getElementById('progressPercent');
+  const starCounter = document.getElementById('starCounter');
+  const resetBtn = document.getElementById('resetBtn');
+  const celebrationModal = document.getElementById('celebrationModal');
+  const modalCloseBtn = document.getElementById('modalCloseBtn');
+  const confirmDialog = document.getElementById('confirmDialog');
+  const confirmCancel = document.getElementById('confirmCancel');
+  const confirmOk = document.getElementById('confirmOk');
+
+  /* =========================================================
+     REUSABLE SPEECH SYNTHESIS FUNCTION
+     ========================================================= */
+  function speak(text, options = {}) {
+    const {
+      lang = 'en-US',
+      rate = 0.9,
+      pitch = 1.0,
+      volume = 1.0,
+      onEnd = null,
+      onStart = null
+    } = options;
+
+    if (!('speechSynthesis' in window)) {
+      console.warn('Speech synthesis not supported.');
+      if (typeof onEnd === 'function') onEnd();
+      return;
+    }
+
+    window.speechSynthesis.cancel();
+
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = lang;
+    utterance.rate = rate;
+    utterance.pitch = pitch;
+    utterance.volume = volume;
+
+    if (typeof onStart === 'function') utterance.onstart = onStart;
+    if (typeof onEnd === 'function') utterance.onend = onEnd;
+    utterance.onerror = () => { if (typeof onEnd === 'function') onEnd(); };
+
+    window.speechSynthesis.speak(utterance);
+  }
+
+  /* =========================================================
+     TAB SWITCHING
+     ========================================================= */
+  function switchTab(tabName) {
+    state.currentTab = tabName;
+    tabButtons.forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.tab === tabName);
+    });
+    sections.forEach(section => {
+      section.classList.toggle('active', section.id === tabName);
+    });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  tabButtons.forEach(btn => {
+    btn.addEventListener('click', () => switchTab(btn.dataset.tab));
+  });
+
+  /* =========================================================
+     PROGRESS & STARS
+     ========================================================= */
+  function updateProgress() {
+    const completedCount = Object.values(state.completedSections)
+      .filter(Boolean).length;
+    const percent = Math.round((completedCount / state.totalSections) * 100);
+
+    progressFill.style.width = percent + '%';
+    progressPercent.textContent = percent + '%';
+    starCounter.textContent = state.stars;
+
+    // Update tab completion badges
+    tabButtons.forEach(btn => {
+      const tab = btn.dataset.tab;
+      btn.classList.toggle('completed', !!state.completedSections[tab]);
+    });
+
+    saveState();
+
+    // Check if all sections completed -> show celebration
+    if (completedCount === state.totalSections && !state.celebrationShown) {
+      state.celebrationShown = true;
+      setTimeout(showCelebration, 800);
+    }
+  }
+
+  function addStar(count = 1) {
+    state.stars += count;
+    updateProgress();
+    starCounter.style.transform = 'scale(1.3)';
+    setTimeout(() => { starCounter.style.transform = 'scale(1)'; }, 250);
+  }
+
+  function completeSection(sectionName) {
+    if (state.completedSections[sectionName]) return;
+    state.completedSections[sectionName] = true;
+    updateProgress();
+  }
+
+  function saveState() {
+    try {
+      const saveState = {
+        stars: state.stars,
+        completedSections: state.completedSections,
+        learnHeard: Array.from(state.learnHeard),
+        listenPlayed: Array.from(state.listenPlayed),
+        challengeScore: state.challengeScore,
+        celebrationShown: state.celebrationShown
+      };
+      localStorage.setItem('meetMyFamilyState', JSON.stringify(saveState));
+    } catch (e) { /* ignore */ }
+  }
+
+  /* =========================================================
+     LEARN SECTION - VOCAB CARDS
+     ========================================================= */
+  function buildLearnSection() {
+    const grid = document.getElementById('vocabGrid');
+    grid.innerHTML = '';
+
+    vocabulary.forEach((item) => {
+      const card = document.createElement('div');
+      card.className = 'vocab-card';
+      card.dataset.word = item.word;
+      card.innerHTML = `
+        <div class="vocab-emoji">${item.emoji}</div>
+        <div class="vocab-word">${item.word}</div>
+        <button class="vocab-listen-btn" aria-label="Listen to ${item.word}">
+          🔊 Listen
+        </button>
+      `;
+
+      const listenBtn = card.querySelector('.vocab-listen-btn');
+
+      const handleListen = (e) => {
+        e.stopPropagation();
+        speak(item.word, { rate: 0.85 });
+        markLearnHeard(item.word, card);
+      };
+
+      listenBtn.addEventListener('click', handleListen);
+      card.addEventListener('click', () => {
+        speak(item.word, { rate: 0.85 });
+        markLearnHeard(item.word, card);
+      });
+
+      grid.appendChild(card);
+    });
+  }
+
+  function markLearnHeard(word, card) {
+    state.learnHeard.add(word);
+    card.classList.add('listened');
+    if (state.learnHeard.size === vocabulary.length && !state.completedSections.learn) {
+      completeSection('learn');
+      addStar(2);
+    }
+    updateProgress();
+  }
+
+  /* =========================================================
+     LISTEN SECTION - PRONUNCIATION BUTTONS
+     ========================================================= */
+  function buildListenSection() {
+    const grid = document.getElementById('listenGrid');
+    grid.innerHTML = '';
+
+    vocabulary.forEach((item) => {
+      const btn = document.createElement('button');
+      btn.className = 'listen-btn';
+      btn.dataset.word = item.word;
+      btn.innerHTML = `
+        <span class="listen-emoji">${item.emoji}</span>
+        <span class="listen-word">${item.word}</span>
+        <span class="listen-icon">🔊</span>
+      `;
+
+      btn.addEventListener('click', () => {
+        if (btn.classList.contains('speaking')) return;
+
+        btn.classList.add('speaking');
+        speak(item.word, {
+          rate: 0.8,
+          onStart: () => { btn.classList.add('speaking'); },
+          onEnd: () => {
+            btn.classList.remove('speaking');
+            markListenPlayed(item.word);
+          }
+        });
+
+        setTimeout(() => {
+          btn.classList.remove('speaking');
+          markListenPlayed(item.word);
+        }, 2000);
+      });
+
+      grid.appendChild(btn);
+    });
+  }
+
+  function markListenPlayed(word) {
+    state.listenPlayed.add(word);
+    if (state.listenPlayed.size === vocabulary.length && !state.completedSections.listen) {
+      completeSection('listen');
+      addStar(2);
+    }
+    updateProgress();
+  }
+
+  /* =========================================================
+     MATCH SECTION
+     ========================================================= */
+  let matchState = {
+    selectedEmoji: null,
+    selectedWord: null,
+    matchedCount: 0
+  };
+
+  function shuffleArray(arr) {
+    const a = arr.slice();
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+  }
+
+  function buildMatchSection() {
+    const emojiCol = document.getElementById('emojiColumn');
+    const wordCol = document.getElementById('wordColumn');
+    document.getElementById('matchCompleteMsg').innerHTML = '';
+
+    emojiCol.innerHTML = '<div class="match-column-title">Pictures</div>';
+    wordCol.innerHTML = '<div class="match-column-title">Words</div>';
+
+    const shuffledEmojis = shuffleArray(vocabulary);
+    const shuffledWords = shuffleArray(vocabulary);
+
+    shuffledEmojis.forEach((item) => {
+      const el = document.createElement('button');
+      el.className = 'match-item';
+      el.dataset.word = item.word;
+      el.dataset.type = 'emoji';
+      el.innerHTML = `<span class="match-emoji">${item.emoji}</span>`;
+      el.addEventListener('click', () => handleMatchClick(el));
+      emojiCol.appendChild(el);
+    });
+
+    shuffledWords.forEach((item) => {
+      const el = document.createElement('button');
+      el.className = 'match-item';
+      el.dataset.word = item.word;
+      el.dataset.type = 'word';
+      el.textContent = item.word;
+      el.addEventListener('click', () => handleMatchClick(el));
+      wordCol.appendChild(el);
+    });
+
+    matchState = { selectedEmoji: null, selectedWord: null, matchedCount: 0 };
+  }
+
+  function handleMatchClick(el) {
+    if (el.classList.contains('correct')) return;
+
+    const type = el.dataset.type;
+
+    if (type === 'emoji') {
+      if (matchState.selectedEmoji) {
+        matchState.selectedEmoji.classList.remove('selected');
+      }
+      matchState.selectedEmoji = el;
+      el.classList.add('selected');
+    } else {
+      if (matchState.selectedWord) {
+        matchState.selectedWord.classList.remove('selected');
+      }
+      matchState.selectedWord = el;
+      el.classList.add('selected');
+    }
+
+    if (matchState.selectedEmoji && matchState.selectedWord) {
+      checkMatch();
+    }
+  }
+
+  function checkMatch() {
+    const emojiEl = matchState.selectedEmoji;
+    const wordEl = matchState.selectedWord;
+
+    if (emojiEl.dataset.word === wordEl.dataset.word) {
+      emojiEl.classList.remove('selected');
+      wordEl.classList.remove('selected');
+      emojiEl.classList.add('correct');
+      wordEl.classList.add('correct');
+
+      matchState.matchedCount++;
+      speak('Good!', { rate: 1.1, pitch: 1.3 });
+
+      matchState.selectedEmoji = null;
+      matchState.selectedWord = null;
+
+      if (matchState.matchedCount === vocabulary.length) {
+        completeMatchGame();
+      }
+    } else {
+      emojiEl.classList.add('wrong');
+      wordEl.classList.add('wrong');
+
+      setTimeout(() => {
+        emojiEl.classList.remove('wrong', 'selected');
+        wordEl.classList.remove('wrong', 'selected');
+        matchState.selectedEmoji = null;
+        matchState.selectedWord = null;
+      }, 600);
+    }
+    updateProgress();
+  }
+
+  function completeMatchGame() {
+    if (state.completedSections.match) return;
+    completeSection('match');
+    addStar(3);
+
+    const msg = document.getElementById('matchCompleteMsg');
+    msg.innerHTML = `
+      <div class="match-complete">
+        <div class="complete-icon">🎉</div>
+        <h3>Amazing Job!</h3>
+        <p>You matched all the family members! +3 ⭐</p>
+      </div>
+    `;
+    msg.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+
+  /* =========================================================
+     GRAMMAR SECTION
+     ========================================================= */
+  let grammarState = {
+    answered: 0,
+    correct: 0
+  };
+
+  function buildGrammarSection() {
+    const container = document.getElementById('grammarQuestions');
+    document.getElementById('grammarCompleteMsg').innerHTML = '';
+    container.innerHTML = '';
+    grammarState = { answered: 0, correct: 0 };
+
+    grammarQuestions.forEach((q, qIdx) => {
+      const qCard = document.createElement('div');
+      qCard.className = 'grammar-question';
+      qCard.dataset.qidx = qIdx;
+
+      const displayText = q.text.replace('___', '<span class="blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>');
+
+      let optionsHTML = '';
+      q.options.forEach((opt, oIdx) => {
+        optionsHTML += `<button class="grammar-option" data-q="${qIdx}" data-o="${oIdx}">${opt}</button>`;
+      });
+
+      qCard.innerHTML = `
+        <div class="grammar-q-number">Question ${qIdx + 1}</div>
+        <div class="grammar-q-text">${displayText}</div>
+        <div class="grammar-options">${optionsHTML}</div>
+        <div class="grammar-feedback"></div>
+      `;
+
+      container.appendChild(qCard);
+    });
+
+    document.querySelectorAll('.grammar-option').forEach(btn => {
+      btn.addEventListener('click', handleGrammarAnswer);
+    });
+  }
+
+  function handleGrammarAnswer(e) {
+    const btn = e.currentTarget;
+    const qIdx = parseInt(btn.dataset.q);
+    const oIdx = parseInt(btn.dataset.o);
+    const q = grammarQuestions[qIdx];
+    const qCard = btn.closest('.grammar-question');
+
+    if (qCard.classList.contains('answered-correct') || qCard.classList.contains('answered-wrong')) return;
+
+    const allOptions = qCard.querySelectorAll('.grammar-option');
+    const feedback = qCard.querySelector('.grammar-feedback');
+    const blank = qCard.querySelector('.blank');
+
+    allOptions.forEach(o => o.disabled = true);
+
+    if (oIdx === q.correct) {
+      btn.classList.add('selected-correct');
+      qCard.classList.add('answered-correct');
+      blank.textContent = q.options[q.correct];
+      blank.style.color = 'var(--success)';
+      blank.style.borderColor = 'var(--success)';
+      feedback.className = 'grammar-feedback show correct';
+      feedback.innerHTML = `✅ <strong>Correct!</strong> ${q.explanation}`;
+      grammarState.correct++;
+      speak('Correct!', { rate: 1.1, pitch: 1.3 });
+    } else {
+      btn.classList.add('selected-wrong');
+      allOptions[q.correct].classList.add('show-correct');
+      qCard.classList.add('answered-wrong');
+      blank.textContent = q.options[q.correct];
+      blank.style.color = 'var(--error)';
+      blank.style.borderColor = 'var(--error)';
+      feedback.className = 'grammar-feedback show wrong';
+      feedback.innerHTML = `❌ <strong>Not quite.</strong> The answer is <strong>${q.options[q.correct]}</strong>. ${q.explanation}`;
+    }
+
+    grammarState.answered++;
+
+    if (grammarState.answered === grammarQuestions.length) {
+      completeGrammar();
+    }
+    updateProgress();
+  }
+
+  function completeGrammar() {
+    if (state.completedSections.grammar) return;
+    completeSection('grammar');
+
+    const stars = grammarState.correct === grammarQuestions.length ? 3 :
+                  grammarState.correct >= 3 ? 2 : 1;
+    addStar(stars);
+
+    const msg = document.getElementById('grammarCompleteMsg');
+    msg.innerHTML = `
+      <div class="grammar-complete">
+        <div class="complete-icon">🌟</div>
+        <h3>Grammar Master!</h3>
+        <p>You got ${grammarState.correct} out of ${grammarQuestions.length} correct! +${stars} ⭐</p>
+      </div>
+    `;
+    msg.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+
+  /* =========================================================
+     CHALLENGE SECTION
+     ========================================================= */
+  let challengeState = {
+    currentIndex: 0,
+    score: 0,
+    answers: [], // 'correct' or 'wrong' per question
+    finished: false
+  };
+
+  function buildChallengeSection() {
+    challengeState = {
+      currentIndex: 0,
+      score: 0,
+      answers: [],
+      finished: false
+    };
+
+    // Build progress dots
+    const progress = document.getElementById('challengeProgress');
+    progress.innerHTML = '';
+    for (let i = 0; i < challengeQuestions.length; i++) {
+      const dot = document.createElement('div');
+      dot.className = 'challenge-dot' + (i === 0 ? ' active' : '');
+      progress.appendChild(dot);
+    }
+
+    renderChallengeQuestion();
+  }
+
+  function renderChallengeQuestion() {
+    const container = document.getElementById('challengeContent');
+    const q = challengeQuestions[challengeState.currentIndex];
+    const qNum = challengeState.currentIndex + 1;
+
+    container.innerHTML = `
+      <div class="challenge-card">
+        <div class="challenge-q-number">Question ${qNum} of ${challengeQuestions.length}</div>
+        <div class="challenge-q-prompt">${q.prompt}</div>
+        <div class="challenge-options" id="challengeOptions">
+          ${q.options.map((opt, idx) => `
+            <button class="challenge-option" data-idx="${idx}">${opt}</button>
+          `).join('')}
+        </div>
+        <div class="challenge-feedback" id="challengeFeedback"></div>
+        <button class="challenge-next-btn" id="challengeNextBtn">
+          ${qNum === challengeQuestions.length ? 'See Results 🎯' : 'Next →'}
+        </button>
+      </div>
+    `;
+
+    // Speak the prompt
+    setTimeout(() => {
+      speak(q.promptSpeak, { rate: 0.85 });
+    }, 300);
+
+    // Attach option listeners
+    document.querySelectorAll('.challenge-option').forEach(btn => {
+      btn.addEventListener('click', handleChallengeAnswer);
+    });
+
+    document.getElementById('challengeNextBtn').addEventListener('click', handleChallengeNext);
+  }
+
+  function handleChallengeAnswer(e) {
+    const btn = e.currentTarget;
+    const idx = parseInt(btn.dataset.idx);
+    const q = challengeQuestions[challengeState.currentIndex];
+    const allOptions = document.querySelectorAll('#challengeOptions .challenge-option');
+    const feedback = document.getElementById('challengeFeedback');
+    const nextBtn = document.getElementById('challengeNextBtn');
+    const blank = document.querySelector('.challenge-q-prompt .blank');
+
+    // Disable all options
+    allOptions.forEach(o => o.disabled = true);
+
+    if (idx === q.correct) {
+      btn.classList.add('selected-correct');
+      feedback.className = 'challenge-feedback show correct';
+      feedback.innerHTML = '✅ Correct! Well done!';
+      challengeState.score++;
+      challengeState.answers.push('correct');
+      if (blank) {
+        blank.textContent = q.options[q.correct];
+        blank.style.color = 'var(--success)';
+        blank.style.borderColor = 'var(--success)';
+      }
+      speak('Correct!', { rate: 1.1, pitch: 1.3 });
+    } else {
+      btn.classList.add('selected-wrong');
+      allOptions[q.correct].classList.add('show-correct');
+      feedback.className = 'challenge-feedback show wrong';
+      feedback.innerHTML = `❌ The answer is <strong>${q.options[q.correct]}</strong>.`;
+      challengeState.answers.push('wrong');
+      if (blank) {
+        blank.textContent = q.options[q.correct];
+        blank.style.color = 'var(--error)';
+        blank.style.borderColor = 'var(--error)';
+      }
+    }
+
+    // Update progress dot
+    const dots = document.querySelectorAll('.challenge-dot');
+    dots[challengeState.currentIndex].classList.remove('active');
+    dots[challengeState.currentIndex].classList.add(idx === q.correct ? 'correct' : 'wrong');
+
+    nextBtn.classList.add('show');
+  }
+
+  function handleChallengeNext() {
+    challengeState.currentIndex++;
+
+    if (challengeState.currentIndex >= challengeQuestions.length) {
+      finishChallenge();
+    } else {
+      // Update active dot
+      const dots = document.querySelectorAll('.challenge-dot');
+      dots[challengeState.currentIndex].classList.add('active');
+      renderChallengeQuestion();
+    }
+  }
+
+  function finishChallenge() {
+    challengeState.finished = true;
+    state.challengeScore = challengeState.score;
+
+    // Award stars based on score (1-5)
+    const starsAwarded = Math.max(1, challengeState.score);
+    addStar(starsAwarded);
+
+    // Mark section complete
+    if (!state.completedSections.challenge) {
+      completeSection('challenge');
+    }
+
+    // Show result card
+    const container = document.getElementById('challengeContent');
+    const starsDisplay = '⭐'.repeat(starsAwarded) + '<span style="opacity:0.25">' + '⭐'.repeat(5 - starsAwarded) + '</span>';
+
+    let message = '';
+    let icon = '';
+    if (challengeState.score === 5) {
+      message = 'Perfect Score!';
+      icon = '🏆';
+    } else if (challengeState.score >= 4) {
+      message = 'Great Job!';
+      icon = '🌟';
+    } else if (challengeState.score >= 3) {
+      message = 'Good Work!';
+      icon = '👍';
+    } else if (challengeState.score >= 2) {
+      message = 'Nice Try!';
+      icon = '💪';
+    } else {
+      message = 'Keep Practicing!';
+      icon = '📚';
+    }
+
+    container.innerHTML = `
+      <div class="challenge-result">
+        <div class="result-icon">${icon}</div>
+        <h3>${message}</h3>
+        <p class="result-score">You got <strong>${challengeState.score} out of ${challengeQuestions.length}</strong> correct!</p>
+        <div class="result-stars">${starsDisplay}</div>
+        <button class="challenge-restart-btn" id="challengeRestartBtn">🔄 Try Again</button>
+      </div>
+    `;
+
+    document.getElementById('challengeRestartBtn').addEventListener('click', () => {
+      buildChallengeSection();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    // Launch confetti if perfect score
+    if (challengeState.score === 5) {
+      setTimeout(launchConfetti, 400);
+    }
+  }
+
+  /* =========================================================
+     CELEBRATION MODAL
+     ========================================================= */
+  function showCelebration() {
+    const modalScore = document.getElementById('modalScore');
+    const modalStars = document.getElementById('modalStars');
+    const modalProgress = document.getElementById('modalProgress');
+    const modalStarsDisplay = document.getElementById('modalStarsDisplay');
+
+    modalScore.textContent = `${state.challengeScore}/${challengeQuestions.length}`;
+    modalStars.textContent = `⭐ ${state.stars}`;
+    modalProgress.textContent = '100%';
+
+    // Stars display based on challenge score (1-5)
+    const starsCount = Math.max(1, state.challengeScore);
+    modalStarsDisplay.textContent = '⭐'.repeat(starsCount);
+
+    celebrationModal.classList.add('show');
+    launchConfetti();
+  }
+
+  modalCloseBtn.addEventListener('click', () => {
+    celebrationModal.classList.remove('show');
+  });
+
+  celebrationModal.addEventListener('click', (e) => {
+    if (e.target === celebrationModal) {
+      celebrationModal.classList.remove('show');
+    }
+  });
+
+  /* =========================================================
+     CONFETTI ANIMATION (Canvas-based, no libraries)
+     ========================================================= */
+  function launchConfetti() {
+    const canvas = document.createElement('canvas');
+    canvas.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:9999;';
+    document.body.appendChild(canvas);
+    const ctx = canvas.getContext('2d');
+
+    function resize() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    resize();
+    window.addEventListener('resize', resize);
+
+    const colors = ['#FF8C42', '#4ECDC4', '#FFD93D', '#6BCB77', '#FF6B6B', '#A78BFA', '#FFB84D'];
+    const particles = [];
+    const PARTICLE_COUNT = 120;
+
+    for (let i = 0; i < PARTICLE_COUNT; i++) {
+      particles.push({
+        x: Math.random() * canvas.width,
+        y: -20 - Math.random() * canvas.height * 0.5,
+        w: 6 + Math.random() * 8,
+        h: 4 + Math.random() * 6,
+        color: colors[Math.floor(Math.random() * colors.length)],
+        vx: (Math.random() - 0.5) * 4,
+        vy: 2 + Math.random() * 3,
+        rotation: Math.random() * Math.PI * 2,
+        rotationSpeed: (Math.random() - 0.5) * 0.2,
+        opacity: 1
+      });
+    }
+
+    const startTime = Date.now();
+    const DURATION = 4500;
+
+    function animate() {
+      const elapsed = Date.now() - startTime;
+
+      if (elapsed > DURATION) {
+        canvas.remove();
+        window.removeEventListener('resize', resize);
+        return;
+      }
+
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      // Fade out in the last second
+      const fadeStart = DURATION - 1000;
+      const globalAlpha = elapsed > fadeStart ? (DURATION - elapsed) / 1000 : 1;
+
+      particles.forEach(p => {
+        p.x += p.vx;
+        p.y += p.vy;
+        p.vy += 0.08; // gravity
+        p.rotation += p.rotationSpeed;
+
+        ctx.save();
+        ctx.globalAlpha = globalAlpha;
+        ctx.translate(p.x, p.y);
+        ctx.rotate(p.rotation);
+        ctx.fillStyle = p.color;
+        ctx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h);
+        ctx.restore();
+      });
+
+      requestAnimationFrame(animate);
+    }
+
+    animate();
+  }
+
+  /* =========================================================
+     RESET LESSON
+     ========================================================= */
+  resetBtn.addEventListener('click', () => {
+    confirmDialog.classList.add('show');
+  });
+
+  confirmCancel.addEventListener('click', () => {
+    confirmDialog.classList.remove('show');
+  });
+
+  confirmOk.addEventListener('click', () => {
+    confirmDialog.classList.remove('show');
+    resetLesson();
+  });
+
+  confirmDialog.addEventListener('click', (e) => {
+    if (e.target === confirmDialog) {
+      confirmDialog.classList.remove('show');
+    }
+  });
+
+  function resetLesson() {
+    // Reset state
+    state.stars = 0;
+    state.learnHeard = new Set();
+    state.listenPlayed = new Set();
+    state.matchMatched = 0;
+    state.grammarAnswered = 0;
+    state.challengeScore = 0;
+    state.celebrationShown = false;
+    Object.keys(state.completedSections).forEach(k => {
+      state.completedSections[k] = false;
+    });
+
+    // Clear storage
+    try { localStorage.removeItem('meetMyFamilyState'); } catch (e) {}
+
+    // Rebuild all sections
+    buildLearnSection();
+    buildListenSection();
+    buildMatchSection();
+    buildGrammarSection();
+    buildChallengeSection();
+
+    // Update UI
+    updateProgress();
+    switchTab('learn');
+
+    // Close celebration modal if open
+    celebrationModal.classList.remove('show');
+  }
+
+  /* =========================================================
+     INIT
+     ========================================================= */
+  function init() {
+    // Try to restore saved state
+    try {
+      const saved = localStorage.getItem('meetMyFamilyState');
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        state.stars = parsed.stars || 0;
+        state.completedSections = parsed.completedSections || state.completedSections;
+        state.learnHeard = new Set(parsed.learnHeard || []);
+        state.listenPlayed = new Set(parsed.listenPlayed || []);
+        state.challengeScore = parsed.challengeScore || 0;
+        state.celebrationShown = parsed.celebrationShown || false;
+      }
+    } catch (e) { /* ignore */ }
+
+    // Build all sections
+    buildLearnSection();
+    buildListenSection();
+    buildMatchSection();
+    buildGrammarSection();
+    buildChallengeSection();
+
+    // Restore visual state for Learn section
+    document.querySelectorAll('.vocab-card').forEach(card => {
+      if (state.learnHeard.has(card.dataset.word)) {
+        card.classList.add('listened');
+      }
+    });
+
+    updateProgress();
+    switchTab('learn');
+  }
+
+  // Expose API for debugging / future use
+  window.lesson = {
+    state,
+    vocabulary,
+    speak,
+    switchTab,
+    addStar,
+    completeSection,
+    updateProgress,
+    resetLesson,
+    launchConfetti
+  };
+
+  init();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,3047 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="theme-color" content="#6C5CE7">
+<title>Describing People - English Lesson</title>
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  :root {
+    --primary: #6C5CE7;
+    --primary-dark: #5849C2;
+    --secondary: #00B894;
+    --accent: #FDCB6E;
+    --pink: #FD79A8;
+    --blue: #74B9FF;
+    --bg: #F8F9FE;
+    --card: #FFFFFF;
+    --text: #2D3436;
+    --text-light: #636E72;
+    --success: #00B894;
+    --error: #FF6B6B;
+    --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
+  }
+
+  html, body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ===== FIXED HEADER ===== */
+  .header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+    color: white;
+    padding: 14px 16px 12px;
+    z-index: 100;
+    box-shadow: var(--shadow);
+  }
+
+  .header-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    gap: 8px;
+  }
+
+  .lesson-title {
+    font-size: 1.15rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex: 1;
+    min-width: 0;
+  }
+
+  .lesson-title::before {
+    content: "👥";
+    font-size: 1.4rem;
+  }
+
+  .header-stats {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    flex-shrink: 0;
+  }
+
+  .star-counter {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    background: rgba(255, 255, 255, 0.2);
+    padding: 4px 10px;
+    border-radius: 20px;
+    transition: transform 0.25s ease;
+  }
+
+  .star-counter::before {
+    content: "⭐";
+    font-size: 1rem;
+  }
+
+  .progress-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .progress-bar {
+    flex: 1;
+    height: 10px;
+    background: rgba(255, 255, 255, 0.25);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+
+  .progress-fill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, var(--accent) 0%, #FFB84D 100%);
+    border-radius: 10px;
+    transition: width 0.5s ease;
+    box-shadow: 0 0 8px rgba(255, 217, 61, 0.6);
+  }
+
+  .progress-percent {
+    font-size: 0.85rem;
+    font-weight: 700;
+    min-width: 40px;
+    text-align: right;
+  }
+
+  /* ===== MAIN CONTENT ===== */
+  main {
+    padding: 110px 16px 40px;
+    max-width: 720px;
+    margin: 0 auto;
+  }
+
+  .section-header {
+    text-align: center;
+    margin: 30px 0 20px;
+  }
+
+  .section-badge {
+    display: inline-block;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+    color: white;
+    padding: 4px 14px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  .section-badge.green {
+    background: linear-gradient(135deg, var(--secondary) 0%, #00A381 100%);
+  }
+
+  .section-badge.pink {
+    background: linear-gradient(135deg, var(--pink) 0%, #E84393 100%);
+  }
+
+  .section-header h1 {
+    font-size: 1.75rem;
+    color: var(--text);
+    margin-bottom: 6px;
+    font-weight: 800;
+  }
+
+  .section-header p {
+    color: var(--text-light);
+    font-size: 0.95rem;
+  }
+
+  /* ===== ACTIVITY CARD ===== */
+  .activity-card {
+    background: var(--card);
+    border-radius: 24px;
+    padding: 22px 18px;
+    margin-bottom: 20px;
+    box-shadow: var(--shadow);
+  }
+
+  .activity-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 6px;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--text);
+  }
+
+  .activity-title .title-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    flex-shrink: 0;
+  }
+
+  .activity-title .title-icon.purple { background: rgba(108, 92, 231, 0.15); color: var(--primary); }
+  .activity-title .title-icon.green { background: rgba(0, 184, 148, 0.15); color: var(--secondary); }
+  .activity-title .title-icon.pink { background: rgba(253, 121, 168, 0.15); color: var(--pink); }
+  .activity-title .title-icon.yellow { background: rgba(253, 203, 110, 0.25); color: #E17055; }
+  .activity-title .title-icon.blue { background: rgba(116, 185, 255, 0.2); color: #0984E3; }
+
+  .activity-subtitle {
+    color: var(--text-light);
+    font-size: 0.9rem;
+    margin-bottom: 18px;
+    padding-left: 46px;
+  }
+
+  .activity-status {
+    display: inline-block;
+    background: var(--bg);
+    color: var(--text-light);
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    margin-bottom: 14px;
+  }
+
+  .activity-status.complete {
+    background: #E8F8EA;
+    color: var(--success);
+  }
+
+  /* ===== A1: DIALOGUE ===== */
+  .dialogue-container {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .dialogue-line {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+  }
+
+  .dialogue-line:active { transform: scale(0.98); }
+  .dialogue-line.right { flex-direction: row-reverse; }
+
+  .avatar {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+  }
+
+  .avatar.youssef { background: linear-gradient(135deg, #74B9FF 0%, #0984E3 100%); }
+  .avatar.sara { background: linear-gradient(135deg, #FD79A8 0%, #E84393 100%); }
+  .avatar svg { width: 100%; height: 100%; }
+
+  .bubble {
+    background: var(--bg);
+    border-radius: 18px;
+    padding: 12px 16px;
+    max-width: calc(100% - 60px);
+    position: relative;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text);
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .dialogue-line.right .bubble { background: #FFF0F5; }
+
+  .bubble::before {
+    content: "";
+    position: absolute;
+    top: 14px;
+    width: 0;
+    height: 0;
+    border: 8px solid transparent;
+  }
+
+  .dialogue-line:not(.right) .bubble::before { left: -16px; border-right-color: var(--bg); }
+  .dialogue-line.right .bubble::before { right: -16px; border-left-color: #FFF0F5; }
+
+  .bubble .speaker {
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--text-light);
+    display: block;
+    margin-bottom: 2px;
+  }
+
+  .bubble .text { flex: 1; }
+  .bubble .play-icon { font-size: 1.1rem; flex-shrink: 0; transition: transform 0.3s ease; }
+
+  .bubble.speaking {
+    border-color: var(--primary);
+    background: #F0ECFF;
+    animation: bubblePulse 0.8s ease-in-out infinite;
+  }
+
+  .dialogue-line.right .bubble.speaking {
+    background: #FFE4EE;
+    border-color: var(--pink);
+  }
+
+  .bubble.speaking .play-icon { animation: speakerWave 0.6s ease-in-out infinite; }
+
+  .bubble.practiced { border-color: var(--success); background: #E8F8EA; }
+  .dialogue-line.right .bubble.practiced { background: #E8F8EA; }
+
+  .bubble .check-mark { display: none; color: var(--success); font-weight: 900; font-size: 1rem; }
+  .bubble.practiced .check-mark { display: inline-block; }
+  .bubble.practiced .play-icon { display: none; }
+
+  @keyframes bubblePulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.02); }
+  }
+
+  @keyframes speakerWave {
+    0%, 100% { transform: scale(1); }
+    25% { transform: scale(1.2); }
+    75% { transform: scale(0.9); }
+  }
+
+  /* ===== A2: VOCABULARY PAIRS ===== */
+  .vocab-pairs { display: flex; flex-direction: column; gap: 16px; }
+
+  .vocab-pair {
+    background: var(--bg);
+    border-radius: 20px;
+    padding: 16px;
+  }
+
+  .pair-label {
+    text-align: center;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--text-light);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 12px;
+  }
+
+  .pair-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  .vocab-card {
+    background: var(--card);
+    border-radius: 18px;
+    padding: 14px 8px 12px;
+    text-align: center;
+    cursor: pointer;
+    border: 3px solid transparent;
+    transition: all 0.3s ease;
+    box-shadow: var(--shadow);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .vocab-card:active { transform: scale(0.97); }
+  .vocab-card .card-emoji { font-size: 2.5rem; line-height: 1; }
+  .vocab-card .card-emoji svg { width: 100%; height: auto; max-height: 90px; }
+  .vocab-card .card-word {
+    font-size: 1rem;
+    font-weight: 800;
+    color: var(--text);
+    text-transform: lowercase;
+  }
+  .vocab-card .card-hint {
+    font-size: 0.7rem;
+    color: var(--text-light);
+    font-weight: 600;
+  }
+  .vocab-card .card-check {
+    position: absolute;
+    top: 6px;
+    right: 8px;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: var(--success);
+    color: white;
+    font-size: 0.8rem;
+    font-weight: 900;
+    display: none;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .vocab-card.listened { border-color: var(--primary); background: #F0ECFF; }
+  .vocab-card.listened .card-hint::after {
+    content: "Tap again to practice ✓";
+    display: block;
+    color: var(--primary);
+    margin-top: 2px;
+  }
+
+  .vocab-card.practiced {
+    border-color: var(--success);
+    background: #E8F8EA;
+    animation: pop 0.4s ease;
+  }
+  .vocab-card.practiced .card-check { display: flex; }
+  .vocab-card.practiced .card-word { color: var(--success); }
+  .vocab-card.practiced .card-hint { display: none; }
+
+  @keyframes pop {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.08); }
+    100% { transform: scale(1); }
+  }
+
+  /* ===== SECTION B: SENTENCE CARDS ===== */
+  .sentence-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+    margin-bottom: 18px;
+  }
+
+  .sentence-card {
+    background: var(--card);
+    border: 3px solid var(--bg);
+    border-radius: 16px;
+    padding: 14px 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    box-shadow: var(--shadow);
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--text);
+    text-align: left;
+    font-family: inherit;
+    width: 100%;
+  }
+
+  .sentence-card:active { transform: scale(0.98); }
+
+  .sentence-card .s-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    flex-shrink: 0;
+    transition: transform 0.3s ease;
+  }
+
+  .sentence-card .s-text { flex: 1; }
+  .sentence-card .s-check { color: var(--success); font-weight: 900; font-size: 1.1rem; display: none; }
+
+  .sentence-card.heard { border-color: var(--primary); background: #F0ECFF; }
+  .sentence-card.heard .s-icon { animation: speakerWave 0.6s ease-in-out 2; }
+  .sentence-card.practiced { border-color: var(--success); background: #E8F8EA; }
+  .sentence-card.practiced .s-check { display: inline-block; }
+  .sentence-card.practiced .s-icon { background: var(--success); }
+  .sentence-card.selected {
+    border-color: var(--primary);
+    background: #F0ECFF;
+    box-shadow: 0 0 0 4px rgba(108, 92, 231, 0.2);
+    transform: scale(1.02);
+  }
+  .sentence-card.matched {
+    border-color: var(--success);
+    background: #E8F8EA;
+    pointer-events: none;
+    opacity: 0.85;
+  }
+  .sentence-card.matched .s-check { display: inline-block; }
+  .sentence-card.matched .s-icon { background: var(--success); }
+
+  /* ===== SECTION B: MATCHING AREA ===== */
+  .match-area { display: none; animation: fadeIn 0.4s ease; }
+  .match-area.show { display: block; }
+
+  .match-instruction {
+    background: linear-gradient(135deg, var(--accent) 0%, #FFB84D 100%);
+    color: var(--text);
+    padding: 12px 16px;
+    border-radius: 14px;
+    text-align: center;
+    font-weight: 700;
+    font-size: 0.95rem;
+    margin-bottom: 16px;
+    box-shadow: var(--shadow);
+  }
+
+  .match-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+
+  .match-column { display: flex; flex-direction: column; gap: 10px; }
+
+  .match-col-title {
+    text-align: center;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--text-light);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 4px;
+  }
+
+  .match-pic {
+    background: var(--card);
+    border: 3px solid #E0E0E0;
+    border-radius: 16px;
+    padding: 10px 8px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    box-shadow: var(--shadow);
+    min-height: 110px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    font-family: inherit;
+  }
+
+  .match-pic svg { width: 100%; max-width: 70px; height: auto; }
+
+  .match-pic .pic-label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--text-light);
+    text-transform: uppercase;
+  }
+
+  .match-pic.selected {
+    border-color: var(--primary);
+    background: #F0ECFF;
+    transform: scale(1.05);
+    box-shadow: 0 0 0 4px rgba(108, 92, 231, 0.2);
+  }
+
+  .match-pic.matched {
+    border-color: var(--success);
+    background: #E8F8EA;
+    pointer-events: none;
+    position: relative;
+  }
+
+  .match-pic.matched::after {
+    content: "✓";
+    position: absolute;
+    top: 6px;
+    right: 8px;
+    background: var(--success);
+    color: white;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    font-size: 0.8rem;
+    font-weight: 900;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .match-pic.wrong {
+    border-color: var(--error);
+    background: #FFE8E8;
+    animation: shake 0.4s ease;
+  }
+
+  @keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    20% { transform: translateX(-6px); }
+    40% { transform: translateX(6px); }
+    60% { transform: translateX(-4px); }
+    80% { transform: translateX(4px); }
+  }
+
+  .match-feedback {
+    margin-top: 14px;
+    padding: 12px 16px;
+    border-radius: 14px;
+    text-align: center;
+    font-weight: 700;
+    font-size: 0.95rem;
+    display: none;
+    animation: fadeIn 0.3s ease;
+  }
+
+  .match-feedback.show { display: block; }
+  .match-feedback.correct { background: #E8F8EA; color: #2E7D32; }
+  .match-feedback.wrong { background: #FFE8E8; color: #C62828; }
+
+  /* ===== SECTION C: WRITE THE WORDS ===== */
+  .write-pairs { display: flex; flex-direction: column; gap: 18px; margin-bottom: 20px; }
+
+  .write-pair {
+    background: var(--bg);
+    border-radius: 20px;
+    padding: 16px;
+  }
+
+  .write-pair-title {
+    text-align: center;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--text-light);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 12px;
+  }
+
+  .write-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  .write-card {
+    background: var(--card);
+    border-radius: 16px;
+    padding: 12px 8px;
+    text-align: center;
+    box-shadow: var(--shadow);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .write-card svg { width: 100%; max-width: 70px; height: auto; }
+
+  .write-blank {
+    width: 100%;
+    min-height: 40px;
+    border: 3px dashed #B2BEC3;
+    border-radius: 12px;
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 1rem;
+    color: var(--text);
+    cursor: pointer;
+    transition: all 0.25s ease;
+    padding: 6px;
+    text-transform: lowercase;
+  }
+
+  .write-blank.empty {
+    color: #B2BEC3;
+    font-style: italic;
+    font-weight: 600;
+    font-size: 0.85rem;
+  }
+
+  .write-blank.selected-target {
+    border-color: var(--primary);
+    background: #F0ECFF;
+    box-shadow: 0 0 0 3px rgba(108, 92, 231, 0.2);
+  }
+
+  .write-blank.correct {
+    border-style: solid;
+    border-color: var(--success);
+    background: #E8F8EA;
+    color: var(--success);
+  }
+
+  .write-blank.correct::after {
+    content: " ✓";
+    color: var(--success);
+  }
+
+  .write-blank.wrong {
+    border-style: solid;
+    border-color: var(--error);
+    background: #FFE8E8;
+    color: var(--error);
+    animation: shake 0.4s ease;
+  }
+
+  .write-blank.revealed {
+    border-style: solid;
+    border-color: var(--primary);
+    background: #F0ECFF;
+    color: var(--primary);
+  }
+
+  /* ===== WORD BANK ===== */
+  .word-bank {
+    background: linear-gradient(135deg, var(--accent) 0%, #FFB84D 100%);
+    border-radius: 20px;
+    padding: 16px;
+    margin-bottom: 16px;
+    box-shadow: var(--shadow);
+  }
+
+  .word-bank-title {
+    text-align: center;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--text);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+  }
+
+  .word-bank-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+  }
+
+  .word-chip {
+    background: var(--card);
+    border: 3px solid transparent;
+    border-radius: 14px;
+    padding: 10px 6px;
+    text-align: center;
+    font-weight: 800;
+    font-size: 0.95rem;
+    color: var(--text);
+    cursor: pointer;
+    transition: all 0.25s ease;
+    box-shadow: var(--shadow);
+    text-transform: lowercase;
+    font-family: inherit;
+  }
+
+  .word-chip:active { transform: scale(0.95); }
+
+  .word-chip.selected {
+    border-color: var(--primary);
+    background: #F0ECFF;
+    color: var(--primary);
+    transform: scale(1.05);
+    box-shadow: 0 0 0 3px rgba(108, 92, 231, 0.2);
+  }
+
+  .word-chip.used {
+    opacity: 0.35;
+    pointer-events: none;
+    text-decoration: line-through;
+  }
+
+  /* ===== ACTION BUTTONS ===== */
+  .action-buttons {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .action-btn {
+    flex: 1;
+    min-width: 120px;
+    padding: 12px 16px;
+    border: none;
+    border-radius: 14px;
+    font-size: 0.95rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: inherit;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+  }
+
+  .action-btn:active { transform: scale(0.97); }
+
+  .action-btn.primary {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+    color: white;
+    box-shadow: var(--shadow);
+  }
+
+  .action-btn.secondary {
+    background: var(--bg);
+    color: var(--text);
+    border: 2px solid #DFE6E9;
+  }
+
+  .action-btn.success {
+    background: linear-gradient(135deg, var(--secondary) 0%, #00A381 100%);
+    color: white;
+    box-shadow: var(--shadow);
+  }
+
+  /* ===== SECTION D: LANGUAGE BOX ===== */
+  .language-box {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+    border-radius: 20px;
+    padding: 18px;
+    margin-bottom: 18px;
+    box-shadow: var(--shadow);
+    color: white;
+  }
+
+  .language-box.pink-box {
+    background: linear-gradient(135deg, var(--pink) 0%, #E84393 100%);
+  }
+
+  .language-box-title {
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    opacity: 0.95;
+  }
+
+  .language-box-title::before {
+    content: "💡";
+    font-size: 1.1rem;
+  }
+
+  .lang-sentences {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .lang-sentence {
+    background: rgba(255, 255, 255, 0.18);
+    border: 2px solid transparent;
+    border-radius: 14px;
+    padding: 12px 14px;
+    font-size: 1.05rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: inherit;
+    color: white;
+    text-align: left;
+    width: 100%;
+  }
+
+  .lang-sentence:active {
+    transform: scale(0.98);
+  }
+
+  .lang-sentence .lang-icon {
+    font-size: 1.1rem;
+    flex-shrink: 0;
+    transition: transform 0.3s ease;
+  }
+
+  .lang-sentence .lang-text {
+    flex: 1;
+  }
+
+  .lang-sentence .lang-check {
+    display: none;
+    font-weight: 900;
+  }
+
+  .lang-sentence.speaking {
+    background: rgba(255, 255, 255, 0.3);
+    border-color: rgba(255, 255, 255, 0.5);
+  }
+
+  .lang-sentence.speaking .lang-icon {
+    animation: speakerWave 0.6s ease-in-out infinite;
+  }
+
+  .lang-sentence.heard {
+    background: rgba(255, 255, 255, 0.3);
+    border-color: rgba(255, 255, 255, 0.5);
+  }
+
+  .lang-sentence.heard .lang-check {
+    display: inline-block;
+  }
+
+  .lang-sentence.heard .lang-icon {
+    display: none;
+  }
+
+  /* Subject pronoun highlights */
+  .subj-i {
+    background: var(--accent);
+    color: var(--text);
+    padding: 2px 8px;
+    border-radius: 6px;
+    font-weight: 900;
+  }
+
+  .subj-he {
+    background: var(--blue);
+    color: white;
+    padding: 2px 8px;
+    border-radius: 6px;
+    font-weight: 900;
+  }
+
+  .subj-she {
+    background: #FFB6D3;
+    color: #C2185B;
+    padding: 2px 8px;
+    border-radius: 6px;
+    font-weight: 900;
+  }
+
+  /* D1 grammar practice */
+  .grammar-practice {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .grammar-item {
+    background: var(--card);
+    border: 3px solid var(--bg);
+    border-radius: 16px;
+    padding: 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: all 0.3s ease;
+    box-shadow: var(--shadow);
+  }
+
+  .grammar-item .g-number {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--primary);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.85rem;
+    font-weight: 800;
+    flex-shrink: 0;
+  }
+
+  .grammar-item .g-sentence {
+    flex: 1;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--text);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+
+  .grammar-item .g-sentence svg {
+    width: 32px;
+    height: 40px;
+    flex-shrink: 0;
+  }
+
+  .grammar-item .g-blank {
+    min-width: 70px;
+    padding: 4px 10px;
+    border-bottom: 3px solid var(--primary);
+    text-align: center;
+    font-weight: 900;
+    color: var(--primary);
+    text-transform: capitalize;
+  }
+
+  .grammar-item .g-options {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+
+  .grammar-item .g-opt {
+    background: var(--bg);
+    border: 2px solid transparent;
+    border-radius: 10px;
+    padding: 8px 12px;
+    font-size: 0.9rem;
+    font-weight: 800;
+    color: var(--text);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: inherit;
+    text-transform: capitalize;
+  }
+
+  .grammar-item .g-opt:active { transform: scale(0.95); }
+
+  .grammar-item .g-opt.selected-correct {
+    background: var(--success);
+    color: white;
+    border-color: var(--success);
+  }
+
+  .grammar-item .g-opt.selected-wrong {
+    background: var(--error);
+    color: white;
+    border-color: var(--error);
+    animation: shake 0.4s ease;
+  }
+
+  .grammar-item .g-opt.show-correct {
+    background: #E8F8EA;
+    color: var(--success);
+    border-color: var(--success);
+  }
+
+  .grammar-item .g-opt:disabled {
+    cursor: not-allowed;
+    opacity: 0.7;
+  }
+
+  .grammar-item.correct-answer {
+    border-color: var(--success);
+    background: #F0FBF7;
+  }
+
+  .grammar-item.wrong-answer {
+    border-color: var(--error);
+    background: #FFF5F5;
+  }
+
+  /* D2 Yes/No cards */
+  .yesno-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .yesno-card {
+    background: var(--card);
+    border: 3px solid var(--bg);
+    border-radius: 18px;
+    padding: 14px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    box-shadow: var(--shadow);
+    transition: all 0.3s ease;
+  }
+
+  .yesno-card .yn-pic {
+    width: 60px;
+    height: 70px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .yesno-card .yn-pic svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  .yesno-card .yn-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .yesno-card .yn-question {
+    font-size: 1rem;
+    font-weight: 800;
+    color: var(--text);
+  }
+
+  .yesno-card .yn-buttons {
+    display: flex;
+    gap: 8px;
+  }
+
+  .yesno-card .yn-btn {
+    flex: 1;
+    padding: 10px 8px;
+    border: 3px solid transparent;
+    border-radius: 12px;
+    font-size: 0.95rem;
+    font-weight: 800;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: inherit;
+  }
+
+  .yesno-card .yn-btn:active { transform: scale(0.95); }
+
+  .yesno-card .yn-btn.yes {
+    background: #E8F8EA;
+    color: var(--success);
+    border-color: var(--success);
+  }
+
+  .yesno-card .yn-btn.no {
+    background: #FFE8E8;
+    color: var(--error);
+    border-color: var(--error);
+  }
+
+  .yesno-card .yn-btn:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+
+  .yesno-card .yn-btn.correct {
+    background: var(--success);
+    color: white;
+    border-color: var(--success);
+    animation: pop 0.4s ease;
+  }
+
+  .yesno-card .yn-btn.wrong {
+    background: var(--error);
+    color: white;
+    border-color: var(--error);
+    animation: shake 0.4s ease;
+  }
+
+  .yesno-card .yn-btn.show-correct {
+    background: #E8F8EA;
+    color: var(--success);
+    border-color: var(--success);
+  }
+
+  .yesno-card.answered-correct {
+    border-color: var(--success);
+    background: #F0FBF7;
+  }
+
+  .yesno-card.answered-wrong {
+    border-color: var(--error);
+    background: #FFF5F5;
+  }
+
+  .yesno-card .yn-feedback {
+    font-size: 0.85rem;
+    font-weight: 700;
+    display: none;
+  }
+
+  .yesno-card .yn-feedback.show {
+    display: block;
+  }
+
+  .yesno-card .yn-feedback.correct { color: var(--success); }
+  .yesno-card .yn-feedback.wrong { color: var(--error); }
+
+  /* ===== COMPLETE BANNER ===== */
+  .section-complete {
+    background: linear-gradient(135deg, var(--secondary) 0%, #00A381 100%);
+    color: white;
+    padding: 20px;
+    border-radius: 20px;
+    text-align: center;
+    margin-top: 20px;
+    box-shadow: var(--shadow-lg);
+    animation: fadeIn 0.5s ease;
+    display: none;
+  }
+
+  .section-complete.show { display: block; }
+
+  .section-complete .complete-icon {
+    font-size: 3rem;
+    margin-bottom: 6px;
+    animation: bounce 1.5s ease-in-out infinite;
+  }
+
+  .section-complete h3 {
+    font-size: 1.3rem;
+    margin-bottom: 4px;
+  }
+
+  @keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ===== FINAL CELEBRATION MODAL ===== */
+  .final-modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.65);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    z-index: 1000;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+
+  .final-modal.show {
+    display: flex;
+    animation: fadeIn 0.3s ease;
+  }
+
+  .final-card {
+    background: linear-gradient(135deg, #FFFFFF 0%, #FFF5EB 100%);
+    border-radius: 28px;
+    padding: 32px 24px;
+    max-width: 420px;
+    width: 100%;
+    text-align: center;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    animation: modalPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+    position: relative;
+  }
+
+  @keyframes modalPop {
+    0% { transform: scale(0.5); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+  }
+
+  .final-icon {
+    font-size: 5rem;
+    margin-bottom: 8px;
+    animation: bounce 1.5s ease-in-out infinite;
+  }
+
+  .final-title {
+    font-size: 2rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--pink) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 8px;
+  }
+
+  .final-subtitle {
+    font-size: 1.05rem;
+    color: var(--text);
+    margin-bottom: 20px;
+    font-weight: 600;
+  }
+
+  .final-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+
+  .final-stat {
+    background: white;
+    border-radius: 16px;
+    padding: 14px 8px;
+    box-shadow: var(--shadow);
+  }
+
+  .final-stat .stat-label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: var(--text-light);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 4px;
+  }
+
+  .final-stat .stat-value {
+    font-size: 1.3rem;
+    font-weight: 800;
+    color: var(--primary-dark);
+  }
+
+  .final-stars-display {
+    font-size: 2rem;
+    letter-spacing: 4px;
+    margin-bottom: 20px;
+    line-height: 1;
+  }
+
+  .final-progress-bar {
+    background: #E0E0E0;
+    height: 12px;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 20px;
+  }
+
+  .final-progress-fill {
+    height: 100%;
+    width: 100%;
+    background: linear-gradient(90deg, var(--secondary) 0%, #00A381 100%);
+    border-radius: 10px;
+  }
+
+  .final-restart-btn {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+    color: white;
+    border: none;
+    padding: 14px 36px;
+    border-radius: 30px;
+    font-size: 1.05rem;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: var(--shadow);
+    font-family: inherit;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .final-restart-btn:active { transform: scale(0.97); }
+
+  /* ===== RESPONSIVE ===== */
+  @media (min-width: 500px) {
+    .section-header h1 { font-size: 2rem; }
+    .activity-card { padding: 28px 24px; }
+    .bubble { font-size: 1.05rem; }
+    .sentence-grid { grid-template-columns: repeat(2, 1fr); }
+    .word-bank-grid { grid-template-columns: repeat(6, 1fr); }
+    .lang-sentences { grid-template-columns: repeat(2, 1fr); }
+    .yesno-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  @media (min-width: 600px) {
+    main { padding-top: 120px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== HEADER ===== -->
+<header class="header">
+  <div class="header-top">
+    <h1 class="lesson-title">Describing People</h1>
+    <div class="header-stats">
+      <div class="star-counter" id="starCounter">0</div>
+    </div>
+  </div>
+  <div class="progress-wrapper">
+    <div class="progress-bar">
+      <div class="progress-fill" id="progressFill"></div>
+    </div>
+    <div class="progress-percent" id="progressPercent">0%</div>
+  </div>
+</header>
+
+<!-- ===== MAIN ===== -->
+<main>
+
+  <!-- ========================================================= -->
+  <!-- SECTION A: DIALOGUE & VOCABULARY                          -->
+  <!-- ========================================================= -->
+  <div class="section-header">
+    <span class="section-badge">Section A</span>
+    <h1>Dialogue &amp; Vocabulary</h1>
+    <p>Listen, click, and practice describing people!</p>
+  </div>
+
+  <div class="activity-card">
+    <div class="activity-title">
+      <span class="title-icon purple">💬</span>
+      <span>A1. Youssef &amp; Sara Talk</span>
+    </div>
+    <p class="activity-subtitle">Tap each bubble to hear the sentence. Practice all 6!</p>
+    <span class="activity-status" id="dialogueStatus">0 / 6 practiced</span>
+    <div class="dialogue-container" id="dialogueContainer"></div>
+  </div>
+
+  <div class="activity-card">
+    <div class="activity-title">
+      <span class="title-icon green">👂</span>
+      <span>A2. Listen &amp; Point</span>
+    </div>
+    <p class="activity-subtitle">Tap a picture to hear the word. Tap again to mark it practiced.</p>
+    <span class="activity-status" id="vocabStatus">0 / 6 practiced</span>
+    <div class="vocab-pairs" id="vocabPairs"></div>
+  </div>
+
+  <div class="section-complete" id="sectionAComplete">
+    <div class="complete-icon">🎉</div>
+    <h3>Section A Complete!</h3>
+    <p>Great job! You practiced all the words.</p>
+  </div>
+
+  <!-- ========================================================= -->
+  <!-- SECTION B: PRACTICE SPEAKING                              -->
+  <!-- ========================================================= -->
+  <div class="section-header">
+    <span class="section-badge">Section B</span>
+    <h1>Practice Speaking</h1>
+    <p>Listen to sentences and match them to the right picture.</p>
+  </div>
+
+  <div class="activity-card">
+    <div class="activity-title">
+      <span class="title-icon pink">🗣️</span>
+      <span>B1. Listen to Sentences</span>
+    </div>
+    <p class="activity-subtitle">Tap each card to hear the sentence. Listen to all 6!</p>
+    <span class="activity-status" id="sentenceStatus">0 / 6 heard</span>
+    <div class="sentence-grid" id="sentenceGrid"></div>
+  </div>
+
+  <div class="activity-card">
+    <div class="activity-title">
+      <span class="title-icon yellow">🎯</span>
+      <span>B2. Match Sentences to Pictures</span>
+    </div>
+    <p class="activity-subtitle">Tap a sentence, then tap the matching picture.</p>
+    <span class="activity-status" id="matchStatus">0 / 6 matched</span>
+
+    <div class="match-area" id="matchArea">
+      <div class="match-instruction">
+        👉 First, tap a sentence. Then tap the matching picture.
+      </div>
+      <div class="match-grid">
+        <div class="match-column">
+          <div class="match-col-title">Sentences</div>
+          <div id="matchSentences"></div>
+        </div>
+        <div class="match-column">
+          <div class="match-col-title">Pictures</div>
+          <div id="matchPictures"></div>
+        </div>
+      </div>
+      <div class="match-feedback" id="matchFeedback"></div>
+    </div>
+  </div>
+
+  <div class="section-complete" id="sectionBComplete">
+    <div class="complete-icon">🌟</div>
+    <h3>Section B Complete!</h3>
+    <p>Excellent! You matched all the sentences.</p>
+  </div>
+
+  <!-- ========================================================= -->
+  <!-- SECTION C: WRITE THE WORDS                                -->
+  <!-- ========================================================= -->
+  <div class="section-header">
+    <span class="section-badge green">Section C</span>
+    <h1>Write the Words</h1>
+    <p>Choose the right word for each picture.</p>
+  </div>
+
+  <div class="activity-card">
+    <div class="activity-title">
+      <span class="title-icon green">✏️</span>
+      <span>C1. Fill in the Blanks</span>
+    </div>
+    <p class="activity-subtitle">Tap a word from the bank, then tap a blank to place it.</p>
+    <span class="activity-status" id="writeStatus">0 / 6 correct</span>
+
+    <div class="word-bank">
+      <div class="word-bank-title">🎒 Word Bank</div>
+      <div class="word-bank-grid" id="wordBank"></div>
+    </div>
+
+    <div class="write-pairs" id="writePairs"></div>
+
+    <div class="action-buttons">
+      <button class="action-btn primary" id="checkBtn">✓ Check</button>
+      <button class="action-btn secondary" id="revealBtn">👁 Reveal</button>
+      <button class="action-btn secondary" id="resetWriteBtn">↺ Reset</button>
+    </div>
+  </div>
+
+  <div class="section-complete" id="sectionCComplete">
+    <div class="complete-icon">🏆</div>
+    <h3>Section C Complete!</h3>
+    <p>Well done! You wrote all the words correctly.</p>
+  </div>
+
+  <!-- ========================================================= -->
+  <!-- SECTION D: GRAMMAR                                        -->
+  <!-- ========================================================= -->
+  <div class="section-header">
+    <span class="section-badge pink">Section D</span>
+    <h1>Grammar</h1>
+    <p>Learn and practice subject pronouns and questions.</p>
+  </div>
+
+  <!-- D1: I am / He is / She is -->
+  <div class="activity-card">
+    <div class="activity-title">
+      <span class="title-icon purple">📘</span>
+      <span>D1. I am / He is / She is</span>
+    </div>
+    <p class="activity-subtitle">Tap each sentence to hear it. Notice the subject words!</p>
+
+    <div class="language-box">
+      <div class="language-box-title">Language Box</div>
+      <div class="lang-sentences" id="d1LangBox"></div>
+    </div>
+
+    <div class="activity-title" style="margin-top:18px;">
+      <span class="title-icon yellow">📝</span>
+      <span>Mini Practice</span>
+    </div>
+    <p class="activity-subtitle">Choose the right subject for each sentence.</p>
+    <span class="activity-status" id="d1Status">0 / 5 correct</span>
+
+    <div class="grammar-practice" id="d1Practice"></div>
+  </div>
+
+  <!-- D2: Is he...? / Is she...? -->
+  <div class="activity-card">
+    <div class="activity-title">
+      <span class="title-icon pink">❓</span>
+      <span>D2. Is he...? / Is she...?</span>
+    </div>
+    <p class="activity-subtitle">Tap each sentence to hear it. Questions are blue, answers are green or red.</p>
+
+    <div class="language-box pink-box">
+      <div class="language-box-title">Language Box</div>
+      <div class="lang-sentences" id="d2LangBox"></div>
+    </div>
+
+    <div class="activity-title" style="margin-top:18px;">
+      <span class="title-icon blue">🎭</span>
+      <span>Yes or No?</span>
+    </div>
+    <p class="activity-subtitle">Look at the picture and choose Yes or No.</p>
+    <span class="activity-status" id="d2Status">0 / 6 correct</span>
+
+    <div class="yesno-grid" id="d2Cards"></div>
+  </div>
+
+  <div class="section-complete" id="sectionDComplete">
+    <div class="complete-icon">🎓</div>
+    <h3>Section D Complete!</h3>
+    <p>Amazing! You mastered the grammar!</p>
+  </div>
+
+</main>
+
+<!-- ===== FINAL CELEBRATION MODAL ===== -->
+<div class="final-modal" id="finalModal">
+  <div class="final-card">
+    <div class="final-icon">🏆</div>
+    <h2 class="final-title">Excellent Work!</h2>
+    <p class="final-subtitle">You finished the whole lesson! 🎉</p>
+
+    <div class="final-stats">
+      <div class="final-stat">
+        <div class="stat-label">Sections</div>
+        <div class="stat-value">4 / 4</div>
+      </div>
+      <div class="final-stat">
+        <div class="stat-label">Stars</div>
+        <div class="stat-value" id="finalStars">⭐ 0</div>
+      </div>
+      <div class="final-stat">
+        <div class="stat-label">Progress</div>
+        <div class="stat-value">100%</div>
+      </div>
+    </div>
+
+    <div class="final-stars-display" id="finalStarsDisplay">⭐⭐⭐⭐⭐</div>
+
+    <div class="final-progress-bar">
+      <div class="final-progress-fill"></div>
+    </div>
+
+    <button class="final-restart-btn" id="finalRestartBtn">
+      🔄 Restart Lesson
+    </button>
+  </div>
+</div>
+
+<script>
+  /* =========================================================
+     STATE
+     ========================================================= */
+  const state = {
+    stars: 0,
+    // Section A
+    dialoguePracticed: new Set(),
+    vocabPracticed: new Set(),
+    sectionAComplete: false,
+    // Section B
+    sentencesHeard: new Set(),
+    matchesCompleted: new Set(),
+    sectionBComplete: false,
+    // Section C
+    writeAnswers: {},
+    writeChecked: false,
+    writeRevealed: false,
+    sectionCComplete: false,
+    // Section D
+    d1Answered: {},     // idx -> chosen word
+    d1Correct: new Set(),
+    d2Answered: {},     // idx -> 'yes' or 'no'
+    d2Correct: new Set(),
+    sectionDComplete: false,
+    // Completion
+    lessonComplete: false,
+    // Progress
+    totalItems: 41 // 6 dialogue + 6 vocab + 6 matches + 6 write + 5 D1 + 6 D2 = 35... let me recount
+    // A: 12 (6 dialogue + 6 vocab)
+    // B: 6 matches
+    // C: 6 write blanks
+    // D: 5 D1 blanks + 6 D2 cards = 11
+    // Total: 12 + 6 + 6 + 11 = 35
+  };
+  state.totalItems = 35;
+
+  /* =========================================================
+     SVG AVATARS
+     ========================================================= */
+  const svgYoussef = `
+    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="50" cy="40" r="22" fill="#FFEAA7"/>
+      <path d="M 28 32 Q 30 18 50 18 Q 70 18 72 32 Q 72 28 68 26 Q 60 22 50 22 Q 40 22 32 26 Q 28 28 28 32 Z" fill="#2D3436"/>
+      <circle cx="42" cy="40" r="2.5" fill="#2D3436"/>
+      <circle cx="58" cy="40" r="2.5" fill="#2D3436"/>
+      <path d="M 42 50 Q 50 54 58 50" stroke="#2D3436" stroke-width="2" fill="none" stroke-linecap="round"/>
+      <rect x="30" y="62" width="40" height="30" rx="8" fill="#0984E3"/>
+    </svg>`;
+
+  const svgSara = `
+    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="50" cy="40" r="22" fill="#FFEAA7"/>
+      <path d="M 26 38 Q 26 16 50 16 Q 74 16 74 38 Q 74 30 70 28 L 70 48 Q 68 40 66 38 Q 60 34 50 34 Q 40 34 34 38 Q 32 40 30 48 L 30 28 Q 26 30 26 38 Z" fill="#6C4B3A"/>
+      <circle cx="42" cy="42" r="2.5" fill="#2D3436"/>
+      <circle cx="58" cy="42" r="2.5" fill="#2D3436"/>
+      <path d="M 42 52 Q 50 56 58 52" stroke="#E84393" stroke-width="2" fill="none" stroke-linecap="round"/>
+      <circle cx="36" cy="48" r="2" fill="#FD79A8" opacity="0.5"/>
+      <circle cx="64" cy="48" r="2" fill="#FD79A8" opacity="0.5"/>
+      <rect x="30" y="62" width="40" height="30" rx="8" fill="#E84393"/>
+    </svg>`;
+
+  /* =========================================================
+     SVG VOCAB CHARACTERS
+     ========================================================= */
+  const svgShort = `
+    <svg viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="50" cy="30" r="18" fill="#FFEAA7"/>
+      <path d="M 32 22 Q 34 14 50 14 Q 66 14 68 22 Q 68 18 64 16 Q 58 14 50 14 Q 42 14 36 16 Q 32 18 32 22 Z" fill="#2D3436"/>
+      <circle cx="44" cy="30" r="2" fill="#2D3436"/>
+      <circle cx="56" cy="30" r="2" fill="#2D3436"/>
+      <path d="M 44 38 Q 50 41 56 38" stroke="#2D3436" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+      <rect x="34" y="48" width="32" height="40" rx="8" fill="#FDCB6E"/>
+      <rect x="36" y="88" width="10" height="20" rx="3" fill="#636E72"/>
+      <rect x="54" y="88" width="10" height="20" rx="3" fill="#636E72"/>
+    </svg>`;
+
+  const svgTall = `
+    <svg viewBox="0 0 100 140" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="50" cy="22" r="16" fill="#FFEAA7"/>
+      <path d="M 34 16 Q 36 8 50 8 Q 64 8 66 16 Q 66 12 62 10 Q 56 8 50 8 Q 44 8 38 10 Q 34 12 34 16 Z" fill="#2D3436"/>
+      <circle cx="44" cy="22" r="2" fill="#2D3436"/>
+      <circle cx="56" cy="22" r="2" fill="#2D3436"/>
+      <path d="M 44 30 Q 50 33 56 30" stroke="#2D3436" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+      <rect x="36" y="38" width="28" height="60" rx="8" fill="#74B9FF"/>
+      <rect x="38" y="98" width="10" height="30" rx="3" fill="#636E72"/>
+      <rect x="52" y="98" width="10" height="30" rx="3" fill="#636E72"/>
+    </svg>`;
+
+  const svgBig = `
+    <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="60" cy="30" r="20" fill="#FFEAA7"/>
+      <path d="M 40 22 Q 42 12 60 12 Q 78 12 80 22 Q 80 18 76 16 Q 68 12 60 12 Q 52 12 44 16 Q 40 18 40 22 Z" fill="#2D3436"/>
+      <circle cx="52" cy="30" r="2.5" fill="#2D3436"/>
+      <circle cx="68" cy="30" r="2.5" fill="#2D3436"/>
+      <path d="M 52 40 Q 60 44 68 40" stroke="#2D3436" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+      <ellipse cx="60" cy="78" rx="38" ry="32" fill="#FF7675"/>
+      <rect x="38" y="108" width="14" height="10" rx="3" fill="#636E72"/>
+      <rect x="68" y="108" width="14" height="10" rx="3" fill="#636E72"/>
+    </svg>`;
+
+  const svgThin = `
+    <svg viewBox="0 0 80 140" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="40" cy="22" r="16" fill="#FFEAA7"/>
+      <path d="M 24 16 Q 26 8 40 8 Q 54 8 56 16 Q 56 12 52 10 Q 46 8 40 8 Q 34 8 28 10 Q 24 12 24 16 Z" fill="#2D3436"/>
+      <circle cx="34" cy="22" r="2" fill="#2D3436"/>
+      <circle cx="46" cy="22" r="2" fill="#2D3436"/>
+      <path d="M 34 30 Q 40 33 46 30" stroke="#2D3436" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+      <rect x="30" y="38" width="20" height="60" rx="6" fill="#A29BFE"/>
+      <rect x="32" y="98" width="7" height="30" rx="2" fill="#636E72"/>
+      <rect x="41" y="98" width="7" height="30" rx="2" fill="#636E72"/>
+    </svg>`;
+
+  const svgOld = `
+    <svg viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="50" cy="32" r="20" fill="#FFEAA7"/>
+      <path d="M 30 26 Q 32 12 50 12 Q 68 12 70 26 Q 70 22 66 20 Q 58 16 50 16 Q 42 16 34 20 Q 30 22 30 26 Z" fill="#DFE6E9"/>
+      <circle cx="42" cy="32" r="2.5" fill="#2D3436"/>
+      <circle cx="58" cy="32" r="2.5" fill="#2D3436"/>
+      <circle cx="42" cy="32" r="5" fill="none" stroke="#636E72" stroke-width="1.5"/>
+      <circle cx="58" cy="32" r="5" fill="none" stroke="#636E72" stroke-width="1.5"/>
+      <line x1="47" y1="32" x2="53" y2="32" stroke="#636E72" stroke-width="1.5"/>
+      <path d="M 42 44 Q 50 46 58 44" stroke="#2D3436" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+      <path d="M 38 38 Q 40 40 42 38" stroke="#B2BEC3" stroke-width="1" fill="none"/>
+      <path d="M 58 38 Q 60 40 62 38" stroke="#B2BEC3" stroke-width="1" fill="none"/>
+      <rect x="30" y="52" width="40" height="40" rx="8" fill="#00B894"/>
+      <rect x="32" y="92" width="12" height="22" rx="3" fill="#636E72"/>
+      <rect x="56" y="92" width="12" height="22" rx="3" fill="#636E72"/>
+    </svg>`;
+
+  const svgYoung = `
+    <svg viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="50" cy="32" r="20" fill="#FFEAA7"/>
+      <path d="M 30 28 Q 30 10 50 10 Q 70 10 70 28 Q 70 22 66 18 Q 58 12 50 12 Q 42 12 34 18 Q 30 22 30 28 Z" fill="#E17055"/>
+      <circle cx="42" cy="32" r="2.5" fill="#2D3436"/>
+      <circle cx="58" cy="32" r="2.5" fill="#2D3436"/>
+      <path d="M 42 42 Q 50 48 58 42" stroke="#2D3436" stroke-width="2" fill="none" stroke-linecap="round"/>
+      <circle cx="36" cy="40" r="3" fill="#FD79A8" opacity="0.4"/>
+      <circle cx="64" cy="40" r="3" fill="#FD79A8" opacity="0.4"/>
+      <rect x="30" y="52" width="40" height="40" rx="8" fill="#FDCB6E"/>
+      <rect x="32" y="92" width="12" height="22" rx="3" fill="#636E72"/>
+      <rect x="56" y="92" width="12" height="22" rx="3" fill="#636E72"/>
+    </svg>`;
+
+  /* =========================================================
+     DATA
+     ========================================================= */
+  const dialogueLines = [
+    { speaker: 'youssef', name: 'Youssef', text: 'Hello Sara.' },
+    { speaker: 'sara', name: 'Sara', text: 'Hello Youssef.' },
+    { speaker: 'youssef', name: 'Youssef', text: 'Look at my grandfather. He is old.' },
+    { speaker: 'sara', name: 'Sara', text: 'Look at my brother. He is young.' },
+    { speaker: 'youssef', name: 'Youssef', text: 'My father is tall.' },
+    { speaker: 'sara', name: 'Sara', text: 'My sister is short.' }
+  ];
+
+  const vocabPairs = [
+    { label: 'Height', items: [
+      { word: 'short', svg: svgShort },
+      { word: 'tall', svg: svgTall }
+    ]},
+    { label: 'Body', items: [
+      { word: 'big', svg: svgBig },
+      { word: 'thin', svg: svgThin }
+    ]},
+    { label: 'Age', items: [
+      { word: 'old', svg: svgOld },
+      { word: 'young', svg: svgYoung }
+    ]}
+  ];
+
+  const sentences = [
+    { id: 's1', text: 'He is tall.', picture: 'tall' },
+    { id: 's2', text: 'She is short.', picture: 'short' },
+    { id: 's3', text: 'He is old.', picture: 'old' },
+    { id: 's4', text: 'She is young.', picture: 'young' },
+    { id: 's5', text: 'He is big.', picture: 'big' },
+    { id: 's6', text: 'She is thin.', picture: 'thin' }
+  ];
+
+  const pictureMap = {
+    short: { svg: svgShort, label: 'Picture 1' },
+    tall: { svg: svgTall, label: 'Picture 2' },
+    big: { svg: svgBig, label: 'Picture 3' },
+    thin: { svg: svgThin, label: 'Picture 4' },
+    old: { svg: svgOld, label: 'Picture 5' },
+    young: { svg: svgYoung, label: 'Picture 6' }
+  };
+
+  const writePairs = [
+    { title: 'Pair 1: Height', items: [
+      { blankKey: 'w1', answer: 'short', svg: svgShort },
+      { blankKey: 'w2', answer: 'tall', svg: svgTall }
+    ]},
+    { title: 'Pair 2: Body', items: [
+      { blankKey: 'w3', answer: 'big', svg: svgBig },
+      { blankKey: 'w4', answer: 'thin', svg: svgThin }
+    ]},
+    { title: 'Pair 3: Age', items: [
+      { blankKey: 'w5', answer: 'old', svg: svgOld },
+      { blankKey: 'w6', answer: 'young', svg: svgYoung }
+    ]}
+  ];
+
+  const wordBank = ['short', 'tall', 'big', 'thin', 'old', 'young'];
+
+  // D1: I am / He is / She is language box sentences
+  const d1LangSentences = [
+    { text: '<span class="subj-i">I</span> am tall.', speak: 'I am tall.' },
+    { text: '<span class="subj-he">He</span> is tall.', speak: 'He is tall.' },
+    { text: '<span class="subj-she">She</span> is tall.', speak: 'She is tall.' },
+    { text: '<span class="subj-i">I</span> am young.', speak: 'I am young.' },
+    { text: '<span class="subj-he">He</span> is young.', speak: 'He is young.' },
+    { text: '<span class="subj-she">She</span> is young.', speak: 'She is young.' }
+  ];
+
+  // D1 practice items
+  const d1Practice = [
+    { text: '___ am tall.', answer: 'I', svg: null },
+    { text: '___ is old.', answer: 'He', svg: svgTall },  // boy picture
+    { text: '___ is young.', answer: 'She', svg: svgYoung }, // girl picture
+    { text: '___ is thin.', answer: 'He', svg: svgThin },
+    { text: '___ is short.', answer: 'She', svg: svgShort }
+  ];
+
+  // D2: Is he...? / Is she...? language box
+  const d2LangSentences = [
+    { type: 'question', text: 'Is <span class="subj-he">he</span> tall?', speak: 'Is he tall?' },
+    { type: 'answer-yes', text: 'Yes, <span class="subj-he">he</span> is.', speak: 'Yes, he is.' },
+    { type: 'question', text: 'Is <span class="subj-she">she</span> young?', speak: 'Is she young?' },
+    { type: 'answer-yes', text: 'Yes, <span class="subj-she">she</span> is.', speak: 'Yes, she is.' },
+    { type: 'question', text: 'Is <span class="subj-he">he</span> old?', speak: 'Is he old?' },
+    { type: 'answer-no', text: 'No, <span class="subj-he">he</span> isn\'t.', speak: 'No, he isn\'t.' }
+  ];
+
+  // D2 Yes/No cards
+  const d2Cards = [
+    { question: 'Is he tall?', picture: svgTall, answer: 'yes' },
+    { question: 'Is she short?', picture: svgShort, answer: 'yes' },
+    { question: 'Is he young?', picture: svgOld, answer: 'no' },
+    { question: 'Is she old?', picture: svgYoung, answer: 'no' },
+    { question: 'Is he thin?', picture: svgThin, answer: 'yes' },
+    { question: 'Is she big?', picture: svgBig, answer: 'yes' }
+  ];
+
+  /* =========================================================
+     DOM REFS
+     ========================================================= */
+  const progressFill = document.getElementById('progressFill');
+  const progressPercent = document.getElementById('progressPercent');
+  const starCounter = document.getElementById('starCounter');
+
+  /* =========================================================
+     SPEECH SYNTHESIS
+     ========================================================= */
+  function speak(text, options = {}) {
+    const { rate = 0.9, pitch = 1.0, onEnd = null, onStart = null } = options;
+
+    if (!('speechSynthesis' in window)) {
+      if (typeof onEnd === 'function') onEnd();
+      return;
+    }
+
+    window.speechSynthesis.cancel();
+
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = 'en-US';
+    utterance.rate = rate;
+    utterance.pitch = pitch;
+
+    if (typeof onStart === 'function') utterance.onstart = onStart;
+    if (typeof onEnd === 'function') utterance.onend = onEnd;
+    utterance.onerror = () => { if (typeof onEnd === 'function') onEnd(); };
+
+    window.speechSynthesis.speak(utterance);
+  }
+
+  /* =========================================================
+     PROGRESS
+     ========================================================= */
+  function updateProgress() {
+    const practicedCount =
+      state.dialoguePracticed.size +
+      state.vocabPracticed.size +
+      state.matchesCompleted.size +
+      countCorrectWriteAnswers() +
+      state.d1Correct.size +
+      state.d2Correct.size;
+
+    const percent = Math.round((practicedCount / state.totalItems) * 100);
+
+    progressFill.style.width = percent + '%';
+    progressPercent.textContent = percent + '%';
+    starCounter.textContent = state.stars;
+
+    // Status texts
+    document.getElementById('dialogueStatus').textContent =
+      `${state.dialoguePracticed.size} / 6 practiced`;
+    document.getElementById('vocabStatus').textContent =
+      `${state.vocabPracticed.size} / 6 practiced`;
+    document.getElementById('sentenceStatus').textContent =
+      `${state.sentencesHeard.size} / 6 heard`;
+    document.getElementById('matchStatus').textContent =
+      `${state.matchesCompleted.size} / 6 matched`;
+    document.getElementById('writeStatus').textContent =
+      `${countCorrectWriteAnswers()} / 6 correct`;
+    document.getElementById('d1Status').textContent =
+      `${state.d1Correct.size} / 5 correct`;
+    document.getElementById('d2Status').textContent =
+      `${state.d2Correct.size} / 6 correct`;
+
+    // Status badges
+    if (state.dialoguePracticed.size === 6)
+      document.getElementById('dialogueStatus').classList.add('complete');
+    if (state.vocabPracticed.size === 6)
+      document.getElementById('vocabStatus').classList.add('complete');
+    if (state.matchesCompleted.size === 6)
+      document.getElementById('matchStatus').classList.add('complete');
+    if (countCorrectWriteAnswers() === 6)
+      document.getElementById('writeStatus').classList.add('complete');
+    if (state.d1Correct.size === 5)
+      document.getElementById('d1Status').classList.add('complete');
+    if (state.d2Correct.size === 6)
+      document.getElementById('d2Status').classList.add('complete');
+
+    // Section A complete?
+    if (state.dialoguePracticed.size === 6 && state.vocabPracticed.size === 6 && !state.sectionAComplete) {
+      state.sectionAComplete = true;
+      addStars(3);
+      document.getElementById('sectionAComplete').classList.add('show');
+    }
+
+    // Section B complete?
+    if (state.matchesCompleted.size === 6 && !state.sectionBComplete) {
+      state.sectionBComplete = true;
+      addStars(3);
+      document.getElementById('sectionBComplete').classList.add('show');
+    }
+
+    // Section C complete?
+    if (countCorrectWriteAnswers() === 6 && !state.sectionCComplete) {
+      state.sectionCComplete = true;
+      addStars(3);
+      document.getElementById('sectionCComplete').classList.add('show');
+    }
+
+    // Section D complete?
+    if (state.d1Correct.size === 5 && state.d2Correct.size === 6 && !state.sectionDComplete) {
+      state.sectionDComplete = true;
+      addStars(3);
+      document.getElementById('sectionDComplete').classList.add('show');
+    }
+
+    // Lesson complete?
+    if (state.sectionAComplete && state.sectionBComplete &&
+        state.sectionCComplete && state.sectionDComplete && !state.lessonComplete) {
+      state.lessonComplete = true;
+      setTimeout(showFinalCelebration, 1000);
+    }
+
+    saveState();
+  }
+
+  function countCorrectWriteAnswers() {
+    let count = 0;
+    writePairs.forEach(pair => {
+      pair.items.forEach(item => {
+        if (state.writeAnswers[item.blankKey] === item.answer) count++;
+      });
+    });
+    return count;
+  }
+
+  function addStars(count) {
+    state.stars += count;
+    starCounter.textContent = state.stars;
+    starCounter.style.transform = 'scale(1.4)';
+    setTimeout(() => { starCounter.style.transform = 'scale(1)'; }, 300);
+  }
+
+  function saveState() {
+    try {
+      const save = {
+        stars: state.stars,
+        dialoguePracticed: Array.from(state.dialoguePracticed),
+        vocabPracticed: Array.from(state.vocabPracticed),
+        sectionAComplete: state.sectionAComplete,
+        sentencesHeard: Array.from(state.sentencesHeard),
+        matchesCompleted: Array.from(state.matchesCompleted),
+        sectionBComplete: state.sectionBComplete,
+        writeAnswers: state.writeAnswers,
+        sectionCComplete: state.sectionCComplete,
+        d1Answered: state.d1Answered,
+        d1Correct: Array.from(state.d1Correct),
+        d2Answered: state.d2Answered,
+        d2Correct: Array.from(state.d2Correct),
+        sectionDComplete: state.sectionDComplete,
+        lessonComplete: state.lessonComplete
+      };
+      localStorage.setItem('describingPeopleState_v3', JSON.stringify(save));
+    } catch (e) { /* ignore */ }
+  }
+
+  /* =========================================================
+     A1: DIALOGUE
+     ========================================================= */
+  function buildDialogue() {
+    const container = document.getElementById('dialogueContainer');
+    container.innerHTML = '';
+
+    dialogueLines.forEach((line, idx) => {
+      const isRight = line.speaker === 'sara';
+      const lineEl = document.createElement('div');
+      lineEl.className = 'dialogue-line' + (isRight ? ' right' : '');
+
+      const avatarClass = line.speaker === 'youssef' ? 'youssef' : 'sara';
+      const avatarSvg = line.speaker === 'youssef' ? svgYoussef : svgSara;
+
+      lineEl.innerHTML = `
+        <div class="avatar ${avatarClass}">${avatarSvg}</div>
+        <div class="bubble" data-idx="${idx}">
+          <div class="text">
+            <span class="speaker">${line.name}</span>
+            ${line.text}
+          </div>
+          <span class="play-icon">🔊</span>
+          <span class="check-mark">✓</span>
+        </div>
+      `;
+
+      const bubble = lineEl.querySelector('.bubble');
+      bubble.addEventListener('click', () => handleBubbleClick(bubble, line, idx));
+      container.appendChild(lineEl);
+    });
+
+    state.dialoguePracticed.forEach(idx => {
+      const bubble = container.querySelector(`.bubble[data-idx="${idx}"]`);
+      if (bubble) bubble.classList.add('practiced');
+    });
+  }
+
+  function handleBubbleClick(bubble, line, idx) {
+    if (bubble.classList.contains('speaking')) return;
+
+    bubble.classList.add('speaking');
+    speak(line.text, {
+      rate: 0.85,
+      pitch: line.speaker === 'sara' ? 1.2 : 0.95,
+      onEnd: () => {
+        bubble.classList.remove('speaking');
+        if (!state.dialoguePracticed.has(idx)) {
+          state.dialoguePracticed.add(idx);
+          bubble.classList.add('practiced');
+          updateProgress();
+        }
+      }
+    });
+
+    setTimeout(() => {
+      bubble.classList.remove('speaking');
+      if (!state.dialoguePracticed.has(idx)) {
+        state.dialoguePracticed.add(idx);
+        bubble.classList.add('practiced');
+        updateProgress();
+      }
+    }, 2500);
+  }
+
+  /* =========================================================
+     A2: VOCAB PAIRS
+     ========================================================= */
+  function buildVocabPairs() {
+    const container = document.getElementById('vocabPairs');
+    container.innerHTML = '';
+
+    vocabPairs.forEach((pair, pIdx) => {
+      const pairEl = document.createElement('div');
+      pairEl.className = 'vocab-pair';
+
+      let cardsHTML = '';
+      pair.items.forEach((item, iIdx) => {
+        const key = `${pIdx}-${iIdx}`;
+        cardsHTML += `
+          <div class="vocab-card" data-key="${key}" data-word="${item.word}">
+            <div class="card-check">✓</div>
+            <div class="card-emoji">${item.svg}</div>
+            <div class="card-word">${item.word}</div>
+            <div class="card-hint">Tap to listen</div>
+          </div>
+        `;
+      });
+
+      pairEl.innerHTML = `
+        <div class="pair-label">${pair.label}</div>
+        <div class="pair-cards">${cardsHTML}</div>
+      `;
+      container.appendChild(pairEl);
+    });
+
+    document.querySelectorAll('.vocab-card').forEach(card => {
+      card.addEventListener('click', () => handleVocabClick(card));
+    });
+
+    state.vocabPracticed.forEach(key => {
+      const card = container.querySelector(`.vocab-card[data-key="${key}"]`);
+      if (card) card.classList.add('practiced');
+    });
+  }
+
+  function handleVocabClick(card) {
+    const key = card.dataset.key;
+    const word = card.dataset.word;
+
+    if (card.classList.contains('practiced')) return;
+
+    if (card.classList.contains('listened')) {
+      card.classList.remove('listened');
+      card.classList.add('practiced');
+      state.vocabPracticed.add(key);
+      speak('Good!', { rate: 1.1, pitch: 1.3 });
+      updateProgress();
+    } else {
+      card.classList.add('listened');
+      speak(word, { rate: 0.8 });
+    }
+  }
+
+  /* =========================================================
+     B1: SENTENCE CARDS
+     ========================================================= */
+  function buildSentenceCards() {
+    const grid = document.getElementById('sentenceGrid');
+    grid.innerHTML = '';
+
+    sentences.forEach((s) => {
+      const card = document.createElement('button');
+      card.className = 'sentence-card';
+      card.dataset.id = s.id;
+      card.innerHTML = `
+        <span class="s-icon">🔊</span>
+        <span class="s-text">${s.text}</span>
+        <span class="s-check">✓</span>
+      `;
+      card.addEventListener('click', () => handleSentenceClick(card, s));
+      grid.appendChild(card);
+    });
+
+    state.sentencesHeard.forEach(id => {
+      const card = grid.querySelector(`.sentence-card[data-id="${id}"]`);
+      if (card) card.classList.add('practiced');
+    });
+  }
+
+  function handleSentenceClick(card, sentence) {
+    if (card.classList.contains('speaking')) return;
+
+    card.classList.add('speaking');
+    speak(sentence.text, {
+      rate: 0.85,
+      onEnd: () => {
+        card.classList.remove('speaking');
+        if (!state.sentencesHeard.has(sentence.id)) {
+          state.sentencesHeard.add(sentence.id);
+          card.classList.add('practiced');
+          updateProgress();
+        }
+        document.getElementById('matchArea').classList.add('show');
+      }
+    });
+
+    setTimeout(() => {
+      card.classList.remove('speaking');
+      if (!state.sentencesHeard.has(sentence.id)) {
+        state.sentencesHeard.add(sentence.id);
+        card.classList.add('practiced');
+        updateProgress();
+      }
+      document.getElementById('matchArea').classList.add('show');
+    }, 2500);
+  }
+
+  /* =========================================================
+     B2: MATCHING
+     ========================================================= */
+  let matchState = {
+    selectedSentence: null,
+    selectedPicture: null
+  };
+
+  function shuffleArray(arr) {
+    const a = arr.slice();
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+  }
+
+  function buildMatchArea() {
+    const matchArea = document.getElementById('matchArea');
+    const sentCol = document.getElementById('matchSentences');
+    const picCol = document.getElementById('matchPictures');
+    sentCol.innerHTML = '';
+    picCol.innerHTML = '';
+
+    const shuffledSentences = shuffleArray(sentences);
+    const pictureKeys = Object.keys(pictureMap);
+    const shuffledPictures = shuffleArray(pictureKeys);
+
+    shuffledSentences.forEach(s => {
+      const el = document.createElement('button');
+      el.className = 'match-item-sentence';
+      el.style.cssText = `
+        background: var(--card);
+        border: 3px solid #E0E0E0;
+        border-radius: 14px;
+        padding: 12px;
+        text-align: left;
+        cursor: pointer;
+        transition: all 0.25s ease;
+        box-shadow: var(--shadow);
+        font-family: inherit;
+        font-size: 0.95rem;
+        font-weight: 700;
+        color: var(--text);
+        width: 100%;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 10px;
+      `;
+      el.dataset.id = s.id;
+      el.dataset.picture = s.picture;
+      el.innerHTML = `<span style="color:var(--primary);">🔊</span> ${s.text}`;
+      el.addEventListener('click', () => handleMatchSentenceClick(el));
+      sentCol.appendChild(el);
+    });
+
+    shuffledPictures.forEach(key => {
+      const pic = pictureMap[key];
+      const el = document.createElement('button');
+      el.className = 'match-pic';
+      el.dataset.key = key;
+      el.innerHTML = `${pic.svg}<span class="pic-label">${pic.label}</span>`;
+      el.addEventListener('click', () => handleMatchPictureClick(el));
+      picCol.appendChild(el);
+    });
+
+    // Restore matched state
+    state.matchesCompleted.forEach(sentId => {
+      const sentEl = sentCol.querySelector(`[data-id="${sentId}"]`);
+      if (sentEl) {
+        sentEl.classList.add('matched');
+        sentEl.style.borderColor = 'var(--success)';
+        sentEl.style.background = '#E8F8EA';
+        sentEl.style.pointerEvents = 'none';
+        const picKey = sentences.find(s => s.id === sentId).picture;
+        const picEl = picCol.querySelector(`[data-key="${picKey}"]`);
+        if (picEl) picEl.classList.add('matched');
+      }
+    });
+
+    if (state.matchesCompleted.size > 0) {
+      matchArea.classList.add('show');
+    }
+  }
+
+  function handleMatchSentenceClick(el) {
+    if (el.classList.contains('matched')) return;
+
+    document.querySelectorAll('.match-item-sentence.selected').forEach(s => {
+      s.classList.remove('selected');
+      s.style.borderColor = '#E0E0E0';
+      s.style.background = 'var(--card)';
+    });
+
+    el.classList.add('selected');
+    el.style.borderColor = 'var(--primary)';
+    el.style.background = '#F0ECFF';
+    matchState.selectedSentence = el;
+
+    const sentData = sentences.find(s => s.id === el.dataset.id);
+    speak(sentData.text, { rate: 0.85 });
+
+    if (matchState.selectedPicture) {
+      checkMatch();
+    }
+  }
+
+  function handleMatchPictureClick(el) {
+    if (el.classList.contains('matched')) return;
+
+    document.querySelectorAll('.match-pic.selected').forEach(p => {
+      p.classList.remove('selected');
+    });
+
+    el.classList.add('selected');
+    matchState.selectedPicture = el;
+
+    if (matchState.selectedSentence) {
+      checkMatch();
+    }
+  }
+
+  function checkMatch() {
+    const sentEl = matchState.selectedSentence;
+    const picEl = matchState.selectedPicture;
+    const feedback = document.getElementById('matchFeedback');
+
+    if (!sentEl || !picEl) return;
+
+    const expectedPic = sentEl.dataset.picture;
+    const actualPic = picEl.dataset.key;
+
+    if (expectedPic === actualPic) {
+      sentEl.classList.remove('selected');
+      sentEl.classList.add('matched');
+      sentEl.style.borderColor = 'var(--success)';
+      sentEl.style.background = '#E8F8EA';
+      sentEl.style.pointerEvents = 'none';
+
+      picEl.classList.remove('selected');
+      picEl.classList.add('matched');
+
+      state.matchesCompleted.add(sentEl.dataset.id);
+
+      feedback.className = 'match-feedback show correct';
+      feedback.innerHTML = '✅ Correct! Well done!';
+      speak('Correct!', { rate: 1.1, pitch: 1.3 });
+
+      matchState.selectedSentence = null;
+      matchState.selectedPicture = null;
+
+      updateProgress();
+      setTimeout(() => { feedback.classList.remove('show'); }, 1500);
+    } else {
+      picEl.classList.add('wrong');
+
+      feedback.className = 'match-feedback show wrong';
+      feedback.innerHTML = '❌ Try again! Listen carefully.';
+
+      setTimeout(() => {
+        sentEl.classList.remove('selected');
+        sentEl.style.borderColor = '#E0E0E0';
+        sentEl.style.background = 'var(--card)';
+        picEl.classList.remove('wrong', 'selected');
+        matchState.selectedSentence = null;
+        matchState.selectedPicture = null;
+        feedback.classList.remove('show');
+      }, 1200);
+    }
+  }
+
+  /* =========================================================
+     C1: WRITE THE WORDS
+     ========================================================= */
+  let writeState = {
+    selectedWord: null
+  };
+
+  function buildWriteSection() {
+    const container = document.getElementById('writePairs');
+    container.innerHTML = '';
+
+    writePairs.forEach(pair => {
+      const pairEl = document.createElement('div');
+      pairEl.className = 'write-pair';
+
+      let cardsHTML = '';
+      pair.items.forEach(item => {
+        const currentAnswer = state.writeAnswers[item.blankKey] || '';
+        const displayText = currentAnswer || 'tap a word';
+        const emptyClass = currentAnswer ? '' : 'empty';
+
+        cardsHTML += `
+          <div class="write-card">
+            ${item.svg}
+            <div class="write-blank ${emptyClass}" data-key="${item.blankKey}" data-answer="${item.answer}">
+              ${displayText}
+            </div>
+          </div>
+        `;
+      });
+
+      pairEl.innerHTML = `
+        <div class="write-pair-title">${pair.title}</div>
+        <div class="write-cards">${cardsHTML}</div>
+      `;
+      container.appendChild(pairEl);
+    });
+
+    const bank = document.getElementById('wordBank');
+    bank.innerHTML = '';
+    wordBank.forEach(word => {
+      const chip = document.createElement('button');
+      chip.className = 'word-chip';
+      chip.dataset.word = word;
+      chip.textContent = word;
+      chip.addEventListener('click', () => handleWordChipClick(chip));
+      bank.appendChild(chip);
+    });
+
+    document.querySelectorAll('.write-blank').forEach(blank => {
+      blank.addEventListener('click', () => handleBlankClick(blank));
+    });
+
+    updateWordBankUsedState();
+
+    if (state.writeChecked) applyWriteCheckVisuals();
+    if (state.writeRevealed) applyWriteRevealVisuals();
+  }
+
+  function handleWordChipClick(chip) {
+    if (chip.classList.contains('used')) return;
+    if (state.writeChecked || state.writeRevealed) return;
+
+    document.querySelectorAll('.word-chip.selected').forEach(c => c.classList.remove('selected'));
+    document.querySelectorAll('.write-blank.selected-target').forEach(b => b.classList.remove('selected-target'));
+
+    chip.classList.add('selected');
+    writeState.selectedWord = chip.dataset.word;
+  }
+
+  function handleBlankClick(blank) {
+    if (state.writeChecked || state.writeRevealed) return;
+
+    const key = blank.dataset.key;
+
+    if (state.writeAnswers[key]) {
+      delete state.writeAnswers[key];
+      blank.textContent = 'tap a word';
+      blank.classList.add('empty');
+      blank.classList.remove('selected-target');
+      updateWordBankUsedState();
+      saveState();
+      updateProgress();
+      return;
+    }
+
+    if (!writeState.selectedWord) {
+      document.querySelectorAll('.write-blank.selected-target').forEach(b => b.classList.remove('selected-target'));
+      blank.classList.add('selected-target');
+      return;
+    }
+
+    const word = writeState.selectedWord;
+    state.writeAnswers[key] = word;
+    blank.textContent = word;
+    blank.classList.remove('empty', 'selected-target');
+
+    const chip = document.querySelector(`.word-chip[data-word="${word}"]`);
+    if (chip) chip.classList.remove('selected');
+    writeState.selectedWord = null;
+
+    updateWordBankUsedState();
+    saveState();
+    updateProgress();
+  }
+
+  function updateWordBankUsedState() {
+    const usedWords = Object.values(state.writeAnswers);
+    document.querySelectorAll('.word-chip').forEach(chip => {
+      const word = chip.dataset.word;
+      const count = usedWords.filter(w => w === word).length;
+      chip.classList.toggle('used', count > 0);
+    });
+  }
+
+  document.getElementById('checkBtn').addEventListener('click', () => {
+    if (state.writeRevealed) return;
+    state.writeChecked = true;
+    applyWriteCheckVisuals();
+    saveState();
+    updateProgress();
+
+    if (countCorrectWriteAnswers() === 6) {
+      speak('Perfect! Well done!', { rate: 1.0, pitch: 1.2 });
+    } else {
+      speak('Check your answers. Try again!', { rate: 0.95 });
+    }
+  });
+
+  function applyWriteCheckVisuals() {
+    document.querySelectorAll('.write-blank').forEach(blank => {
+      const key = blank.dataset.key;
+      const answer = blank.dataset.answer;
+      const userAnswer = state.writeAnswers[key];
+
+      blank.classList.remove('correct', 'wrong');
+
+      if (!userAnswer) {
+        blank.classList.add('wrong');
+        return;
+      }
+
+      if (userAnswer === answer) {
+        blank.classList.add('correct');
+      } else {
+        blank.classList.add('wrong');
+      }
+    });
+  }
+
+  document.getElementById('revealBtn').addEventListener('click', () => {
+    state.writeRevealed = true;
+    state.writeChecked = false;
+    applyWriteRevealVisuals();
+    saveState();
+    updateProgress();
+    speak('Here are the answers.', { rate: 0.95 });
+  });
+
+  function applyWriteRevealVisuals() {
+    document.querySelectorAll('.write-blank').forEach(blank => {
+      const answer = blank.dataset.answer;
+      blank.textContent = answer;
+      blank.classList.remove('correct', 'wrong', 'empty');
+      blank.classList.add('revealed');
+    });
+    document.querySelectorAll('.word-chip').forEach(c => c.classList.add('used'));
+  }
+
+  document.getElementById('resetWriteBtn').addEventListener('click', () => {
+    state.writeAnswers = {};
+    state.writeChecked = false;
+    state.writeRevealed = false;
+    writeState.selectedWord = null;
+    buildWriteSection();
+    saveState();
+    updateProgress();
+  });
+
+  /* =========================================================
+     D1: I am / He is / She is
+     ========================================================= */
+  let d1LangHeard = new Set();
+
+  function buildD1LanguageBox() {
+    const container = document.getElementById('d1LangBox');
+    container.innerHTML = '';
+
+    d1LangSentences.forEach((s, idx) => {
+      const btn = document.createElement('button');
+      btn.className = 'lang-sentence';
+      btn.dataset.idx = idx;
+      btn.innerHTML = `
+        <span class="lang-icon">🔊</span>
+        <span class="lang-text">${s.text}</span>
+        <span class="lang-check">✓</span>
+      `;
+      btn.addEventListener('click', () => handleD1LangClick(btn, s, idx));
+      container.appendChild(btn);
+    });
+
+    d1LangHeard.forEach(idx => {
+      const btn = container.querySelector(`[data-idx="${idx}"]`);
+      if (btn) btn.classList.add('heard');
+    });
+  }
+
+  function handleD1LangClick(btn, sentence, idx) {
+    if (btn.classList.contains('speaking')) return;
+
+    btn.classList.add('speaking');
+    speak(sentence.speak, {
+      rate: 0.85,
+      onEnd: () => {
+        btn.classList.remove('speaking');
+        btn.classList.add('heard');
+        d1LangHeard.add(idx);
+      }
+    });
+
+    setTimeout(() => {
+      btn.classList.remove('speaking');
+      btn.classList.add('heard');
+      d1LangHeard.add(idx);
+    }, 2500);
+  }
+
+  function buildD1Practice() {
+    const container = document.getElementById('d1Practice');
+    container.innerHTML = '';
+
+    d1Practice.forEach((item, idx) => {
+      const itemEl = document.createElement('div');
+      itemEl.className = 'grammar-item';
+      itemEl.dataset.idx = idx;
+
+      const svgHTML = item.svg ? item.svg : '';
+      const userAnswer = state.d1Answered[idx];
+      const isCorrect = state.d1Correct.has(idx);
+
+      let blankHTML;
+      if (userAnswer) {
+        blankHTML = `<span class="g-blank" style="color:${isCorrect ? 'var(--success)' : 'var(--error)'}; border-color:${isCorrect ? 'var(--success)' : 'var(--error)'};">${userAnswer}</span>`;
+      } else {
+        blankHTML = `<span class="g-blank">___</span>`;
+      }
+
+      let optionsHTML = '';
+      if (!userAnswer) {
+        optionsHTML = `
+          <div class="g-options">
+            <button class="g-opt" data-idx="${idx}" data-val="I">I</button>
+            <button class="g-opt" data-idx="${idx}" data-val="He">He</button>
+            <button class="g-opt" data-idx="${idx}" data-val="She">She</button>
+          </div>
+        `;
+      }
+
+      itemEl.innerHTML = `
+        <span class="g-number">${idx + 1}</span>
+        <div class="g-sentence">
+          ${svgHTML}
+          <span>${item.text.replace('___', blankHTML)}</span>
+        </div>
+        ${optionsHTML}
+      `;
+
+      if (userAnswer) {
+        itemEl.classList.add(isCorrect ? 'correct-answer' : 'wrong-answer');
+      }
+
+      container.appendChild(itemEl);
+    });
+
+    // Attach option listeners
+    document.querySelectorAll('#d1Practice .g-opt').forEach(btn => {
+      btn.addEventListener('click', () => handleD1OptionClick(btn));
+    });
+  }
+
+  function handleD1OptionClick(btn) {
+    const idx = parseInt(btn.dataset.idx);
+    const val = btn.dataset.val;
+    const item = d1Practice[idx];
+
+    if (state.d1Answered[idx] !== undefined) return;
+
+    state.d1Answered[idx] = val;
+
+    const itemEl = btn.closest('.grammar-item');
+    const allOpts = itemEl.querySelectorAll('.g-opt');
+
+    if (val === item.answer) {
+      btn.classList.add('selected-correct');
+      itemEl.classList.add('correct-answer');
+      state.d1Correct.add(idx);
+      speak('Correct!', { rate: 1.1, pitch: 1.3 });
+    } else {
+      btn.classList.add('selected-wrong');
+      itemEl.classList.add('wrong-answer');
+      // Show correct answer
+      allOpts.forEach(o => {
+        if (o.dataset.val === item.answer) {
+          o.classList.add('show-correct');
+        }
+        o.disabled = true;
+      });
+    }
+
+    // Disable all options
+    allOpts.forEach(o => o.disabled = true);
+
+    // Update the blank
+    const blank = itemEl.querySelector('.g-blank');
+    if (blank) {
+      blank.textContent = val;
+      blank.style.color = val === item.answer ? 'var(--success)' : 'var(--error)';
+      blank.style.borderColor = val === item.answer ? 'var(--success)' : 'var(--error)';
+    }
+
+    updateProgress();
+  }
+
+  /* =========================================================
+     D2: Is he...? / Is she...?
+     ========================================================= */
+  let d2LangHeard = new Set();
+
+  function buildD2LanguageBox() {
+    const container = document.getElementById('d2LangBox');
+    container.innerHTML = '';
+
+    d2LangSentences.forEach((s, idx) => {
+      const btn = document.createElement('button');
+      btn.className = 'lang-sentence';
+      btn.dataset.idx = idx;
+
+      // Style based on type
+      let extraStyle = '';
+      if (s.type === 'question') {
+        extraStyle = 'background: rgba(116, 185, 255, 0.3); border-color: rgba(116, 185, 255, 0.5);';
+      } else if (s.type === 'answer-yes') {
+        extraStyle = 'background: rgba(0, 184, 148, 0.3); border-color: rgba(0, 184, 148, 0.5);';
+      } else if (s.type === 'answer-no') {
+        extraStyle = 'background: rgba(255, 107, 107, 0.3); border-color: rgba(255, 107, 107, 0.5);';
+      }
+
+      btn.style.cssText = extraStyle;
+      btn.innerHTML = `
+        <span class="lang-icon">🔊</span>
+        <span class="lang-text">${s.text}</span>
+        <span class="lang-check">✓</span>
+      `;
+      btn.addEventListener('click', () => handleD2LangClick(btn, s, idx));
+      container.appendChild(btn);
+    });
+
+    d2LangHeard.forEach(idx => {
+      const btn = container.querySelector(`[data-idx="${idx}"]`);
+      if (btn) btn.classList.add('heard');
+    });
+  }
+
+  function handleD2LangClick(btn, sentence, idx) {
+    if (btn.classList.contains('speaking')) return;
+
+    btn.classList.add('speaking');
+    speak(sentence.speak, {
+      rate: 0.85,
+      onEnd: () => {
+        btn.classList.remove('speaking');
+        btn.classList.add('heard');
+        d2LangHeard.add(idx);
+      }
+    });
+
+    setTimeout(() => {
+      btn.classList.remove('speaking');
+      btn.classList.add('heard');
+      d2LangHeard.add(idx);
+    }, 2500);
+  }
+
+  function buildD2Cards() {
+    const container = document.getElementById('d2Cards');
+    container.innerHTML = '';
+
+    d2Cards.forEach((card, idx) => {
+      const cardEl = document.createElement('div');
+      cardEl.className = 'yesno-card';
+      cardEl.dataset.idx = idx;
+
+      const userAnswer = state.d2Answered[idx];
+      const isCorrect = state.d2Correct.has(idx);
+      const answered = userAnswer !== undefined;
+
+      let yesBtnClass = 'yn-btn yes';
+      let noBtnClass = 'yn-btn no';
+      let feedbackHTML = '';
+      let cardClass = '';
+
+      if (answered) {
+        if (isCorrect) {
+          if (userAnswer === 'yes') yesBtnClass += ' correct';
+          else noBtnClass += ' correct';
+          cardClass = 'answered-correct';
+          feedbackHTML = '<div class="yn-feedback show correct">✅ Correct!</div>';
+        } else {
+          if (userAnswer === 'yes') yesBtnClass += ' wrong';
+          else noBtnClass += ' wrong';
+          // Show correct answer
+          if (card.answer === 'yes') yesBtnClass += ' show-correct';
+          else noBtnClass += ' show-correct';
+          cardClass = 'answered-wrong';
+          feedbackHTML = `<div class="yn-feedback show wrong">❌ The answer is ${card.answer === 'yes' ? 'Yes' : 'No'}.</div>`;
+        }
+      }
+
+      cardEl.className = 'yesno-card ' + cardClass;
+      cardEl.innerHTML = `
+        <div class="yn-pic">${card.picture}</div>
+        <div class="yn-content">
+          <div class="yn-question">${card.question}</div>
+          <div class="yn-buttons">
+            <button class="${yesBtnClass}" data-idx="${idx}" data-val="yes" ${answered ? 'disabled' : ''}>✓ Yes</button>
+            <button class="${noBtnClass}" data-idx="${idx}" data-val="no" ${answered ? 'disabled' : ''}>✗ No</button>
+          </div>
+          ${feedbackHTML}
+        </div>
+      `;
+
+      container.appendChild(cardEl);
+    });
+
+    // Attach listeners
+    document.querySelectorAll('#d2Cards .yn-btn').forEach(btn => {
+      btn.addEventListener('click', () => handleD2AnswerClick(btn));
+    });
+  }
+
+  function handleD2AnswerClick(btn) {
+    const idx = parseInt(btn.dataset.idx);
+    const val = btn.dataset.val;
+    const card = d2Cards[idx];
+
+    if (state.d2Answered[idx] !== undefined) return;
+
+    state.d2Answered[idx] = val;
+
+    const cardEl = btn.closest('.yesno-card');
+    const allBtns = cardEl.querySelectorAll('.yn-btn');
+    const feedback = cardEl.querySelector('.yn-feedback') || createFeedback(cardEl);
+
+    allBtns.forEach(b => b.disabled = true);
+
+    if (val === card.answer) {
+      btn.classList.add('correct');
+      cardEl.classList.add('answered-correct');
+      state.d2Correct.add(idx);
+      feedback.className = 'yn-feedback show correct';
+      feedback.innerHTML = '✅ Correct!';
+      speak('Correct!', { rate: 1.1, pitch: 1.3 });
+    } else {
+      btn.classList.add('wrong');
+      cardEl.classList.add('answered-wrong');
+      // Show correct answer
+      allBtns.forEach(b => {
+        if (b.dataset.val === card.answer) {
+          b.classList.add('show-correct');
+        }
+      });
+      feedback.className = 'yn-feedback show wrong';
+      feedback.innerHTML = `❌ The answer is ${card.answer === 'yes' ? 'Yes' : 'No'}.`;
+    }
+
+    updateProgress();
+  }
+
+  function createFeedback(cardEl) {
+    const fb = document.createElement('div');
+    fb.className = 'yn-feedback';
+    cardEl.querySelector('.yn-content').appendChild(fb);
+    return fb;
+  }
+
+  /* =========================================================
+     FINAL CELEBRATION
+     ========================================================= */
+  function showFinalCelebration() {
+    const modal = document.getElementById('finalModal');
+    document.getElementById('finalStars').textContent = `⭐ ${state.stars}`;
+
+    // Stars display based on total (max 12 stars from 4 sections × 3)
+    const maxStars = 12;
+    const filledStars = Math.min(state.stars, maxStars);
+    const emptyStars = maxStars - filledStars;
+    document.getElementById('finalStarsDisplay').textContent =
+      '⭐'.repeat(filledStars) + (emptyStars > 0 ? '<span style="opacity:0.25">' + '⭐'.repeat(emptyStars) + '</span>' : '');
+
+    modal.classList.add('show');
+    launchConfetti();
+    speak('Excellent work! You finished the lesson!', { rate: 1.0, pitch: 1.2 });
+  }
+
+  document.getElementById('finalRestartBtn').addEventListener('click', () => {
+    resetLesson();
+  });
+
+  /* =========================================================
+     CONFETTI (Canvas-based)
+     ========================================================= */
+  function launchConfetti() {
+    const canvas = document.createElement('canvas');
+    canvas.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:9999;';
+    document.body.appendChild(canvas);
+    const ctx = canvas.getContext('2d');
+
+    function resize() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    resize();
+    window.addEventListener('resize', resize);
+
+    const colors = ['#6C5CE7', '#00B894', '#FDCB6E', '#FD79A8', '#74B9FF', '#FF7675', '#A29BFE'];
+    const particles = [];
+    const PARTICLE_COUNT = 150;
+
+    for (let i = 0; i < PARTICLE_COUNT; i++) {
+      particles.push({
+        x: Math.random() * canvas.width,
+        y: -20 - Math.random() * canvas.height * 0.5,
+        w: 6 + Math.random() * 8,
+        h: 4 + Math.random() * 6,
+        color: colors[Math.floor(Math.random() * colors.length)],
+        vx: (Math.random() - 0.5) * 4,
+        vy: 2 + Math.random() * 3,
+        rotation: Math.random() * Math.PI * 2,
+        rotationSpeed: (Math.random() - 0.5) * 0.2
+      });
+    }
+
+    const startTime = Date.now();
+    const DURATION = 5000;
+
+    function animate() {
+      const elapsed = Date.now() - startTime;
+
+      if (elapsed > DURATION) {
+        canvas.remove();
+        window.removeEventListener('resize', resize);
+        return;
+      }
+
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      const fadeStart = DURATION - 1200;
+      const globalAlpha = elapsed > fadeStart ? (DURATION - elapsed) / 1200 : 1;
+
+      particles.forEach(p => {
+        p.x += p.vx;
+        p.y += p.vy;
+        p.vy += 0.08;
+        p.rotation += p.rotationSpeed;
+
+        ctx.save();
+        ctx.globalAlpha = globalAlpha;
+        ctx.translate(p.x, p.y);
+        ctx.rotate(p.rotation);
+        ctx.fillStyle = p.color;
+        ctx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h);
+        ctx.restore();
+      });
+
+      requestAnimationFrame(animate);
+    }
+
+    animate();
+  }
+
+  /* =========================================================
+     RESET LESSON
+     ========================================================= */
+  function resetLesson() {
+    state.stars = 0;
+    state.dialoguePracticed = new Set();
+    state.vocabPracticed = new Set();
+    state.sectionAComplete = false;
+    state.sentencesHeard = new Set();
+    state.matchesCompleted = new Set();
+    state.sectionBComplete = false;
+    state.writeAnswers = {};
+    state.writeChecked = false;
+    state.writeRevealed = false;
+    state.sectionCComplete = false;
+    state.d1Answered = {};
+    state.d1Correct = new Set();
+    state.d2Answered = {};
+    state.d2Correct = new Set();
+    state.sectionDComplete = false;
+    state.lessonComplete = false;
+    d1LangHeard = new Set();
+    d2LangHeard = new Set();
+    writeState.selectedWord = null;
+    matchState = { selectedSentence: null, selectedPicture: null };
+
+    try { localStorage.removeItem('describingPeopleState_v3'); } catch (e) {}
+
+    document.querySelectorAll('.section-complete').forEach(el => el.classList.remove('show'));
+    document.querySelectorAll('.activity-status').forEach(el => el.classList.remove('complete'));
+    document.getElementById('finalModal').classList.remove('show');
+    document.getElementById('matchArea').classList.remove('show');
+
+    buildDialogue();
+    buildVocabPairs();
+    buildSentenceCards();
+    buildMatchArea();
+    buildWriteSection();
+    buildD1LanguageBox();
+    buildD1Practice();
+    buildD2LanguageBox();
+    buildD2Cards();
+    updateProgress();
+
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  /* =========================================================
+     INIT
+     ========================================================= */
+  function init() {
+    try {
+      const saved = localStorage.getItem('describingPeopleState_v3');
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        state.stars = parsed.stars || 0;
+        state.dialoguePracticed = new Set(parsed.dialoguePracticed || []);
+        state.vocabPracticed = new Set(parsed.vocabPracticed || []);
+        state.sectionAComplete = parsed.sectionAComplete || false;
+        state.sentencesHeard = new Set(parsed.sentencesHeard || []);
+        state.matchesCompleted = new Set(parsed.matchesCompleted || []);
+        state.sectionBComplete = parsed.sectionBComplete || false;
+        state.writeAnswers = parsed.writeAnswers || {};
+        state.sectionCComplete = parsed.sectionCComplete || false;
+        state.d1Answered = parsed.d1Answered || {};
+        state.d1Correct = new Set(parsed.d1Correct || []);
+        state.d2Answered = parsed.d2Answered || {};
+        state.d2Correct = new Set(parsed.d2Correct || []);
+        state.sectionDComplete = parsed.sectionDComplete || false;
+        state.lessonComplete = parsed.lessonComplete || false;
+      }
+    } catch (e) { /* ignore */ }
+
+    buildDialogue();
+    buildVocabPairs();
+    buildSentenceCards();
+    buildMatchArea();
+    buildWriteSection();
+    buildD1LanguageBox();
+    buildD1Practice();
+    buildD2LanguageBox();
+    buildD2Cards();
+    updateProgress();
+
+    if (state.sectionAComplete) document.getElementById('sectionAComplete').classList.add('show');
+    if (state.sectionBComplete) document.getElementById('sectionBComplete').classList.add('show');
+    if (state.sectionCComplete) document.getElementById('sectionCComplete').classList.add('show');
+    if (state.sectionDComplete) document.getElementById('sectionDComplete').classList.add('show');
+
+    if (state.lessonComplete) {
+      setTimeout(showFinalCelebration, 500);
+    }
+  }
+
+  // Expose API
+  window.lesson = {
+    state,
+    speak,
+    resetLesson,
+    launchConfetti
+  };
+
+  init();
+</script>
+
+</body>
+</html>
